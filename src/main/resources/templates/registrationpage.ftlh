@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/registrationpagestyle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <title>Регистрация</title>
 </head>
 <body>
@@ -43,15 +44,20 @@
             <input type="date" name="establishmentDate" required>
 
             <label>Форма собственности</label>
-
             <select name="ownershipType" required>
                 <option value="" disabled selected>Выберите форму собственности</option>
                 <#list ownershipTypes as type>
-                    <option value="${type.id_forma_sobstvennnosti}">${type.forma}</option>
-                </#list>
+                <option value="${type.id_forma_sobstvennnosti}">${type.forma}</option>
+            </#list>
             </select>
 
-
+            <label>Код и расшифровка ОКВЭД</label>
+            <select name="okved" class="select2" required>
+                <option value="" disabled selected>Выберите ОКВЭД</option>
+                <#list okvedList as okved>
+                <option value="${okved.kod}">${okved.kod} - ${okved.rasshifrovka}</option>
+            </#list>
+            </select>
             <button type="submit">Зарегистрироваться</button>
         </form>
     </div>
@@ -60,5 +66,13 @@
 <footer>
     <p>АлтГТУ 2024</p>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 </body>
 </html>

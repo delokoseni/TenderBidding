@@ -92,6 +92,7 @@ button {
     padding: 10px;
     cursor: pointer;
     width: 97%;
+    margin-top: 20px;
 }
 
 button:hover {
@@ -104,8 +105,8 @@ button:hover {
 }
 
 footer {
-   text-align: left; /* Выровнять текст в подвале слева */
-   padding: 10px 20px;
-   background-color: #007bff; /* Синий цвет для подвала */
-   color: white; /* Белый цвет текста в подвале */
+    text-align: left; /* Выровнять текст в подвале слева */
+    padding: 10px 20px;
+    background-color: #007bff; /* Синий цвет для подвала */
+    color: white; /* Белый цвет текста в подвале */
 }
