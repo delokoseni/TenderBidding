@@ -18,7 +18,18 @@
 </header>
 
 <main>
+    <div class="container">
+        <h1>Вход</h1>
+        <form action="#" method="post">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="Email" required>
 
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="Пароль" required>
+
+            <button type="submit">Войти</button>
+        </form>
+    </div>
 </main>
 
 <footer>

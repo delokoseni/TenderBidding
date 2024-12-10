@@ -4,10 +4,10 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Изменено на flex-start для выравнивания по верхнему краю */
+    align-items: flex-start;
     height: 100vh;
     margin: 0;
-    padding-top: 20px; /* Добавлен отступ сверху для пространства */
+    padding-top: 20px;
 }
 
 .container {

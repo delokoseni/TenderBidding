@@ -16,8 +16,23 @@ body {
     padding: 10px 20px;
 }
 
-h1 {
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.header-container h1 {
     color: white; /* Белый цвет текста в шапке */
+}
+
+.container h1 {
+    color: #007bff; /* Синий цвет заголовка формы */
 }
 
 .buttons {
@@ -34,7 +49,7 @@ h1 {
 }
 
 .btn-main {
-    background-color: #007bff; /* Синяя кнопка входа */
+    background-color: #007bff; /* Синяя кнопка на главную */
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
@@ -50,20 +65,46 @@ h1 {
 }
 
 main {
-    flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+   flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   padding-top: 20px; /* Отступ сверху для главного содержимого */
+   padding-bottom: 20px; /* Отступ снизу для главного содержимого */
 }
 
-h2 {
-    color: #007bff; /* Синий цвет заголовка */
+label {
+   display: block; /* Каждый label занимает новую строку */
+   text-align: left; /* Выровнять текст слева */
+}
+
+input {
+   width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+   padding: 10px;
+   margin-top: 5px; /* Отступ сверху для полей ввода */
+   margin-bottom: 15px; /* Отступ снизу для полей ввода */
+   border-radius: 5px; /* Закругленные края для полей ввода */
+   border: 1px solid #ccc; /* Цвет границы полей ввода */
+}
+
+button {
+   background-color: #007bff; /* Синяя кнопка */
+   color: white;
+   border: none;
+   border-radius: 5px; /* Закругленные края кнопки */
+   padding: 10px;
+   cursor: pointer;
+   width: 97%;
+}
+
+button:hover {
+   background-color: #0056b3; /* Темнее при наведении */
 }
 
 footer {
-    text-align: left; /* Выровнять текст в подвале слева */
-    padding: 10px 20px;
-    background-color: #007bff; /* Синий цвет для подвала */
-    color: white; /* Белый цвет текста в подвале */
+   text-align: left; /* Выровнять текст в подвале слева */
+   padding: 10px 20px;
+   background-color: #007bff; /* Синий цвет для подвала */
+   color: white; /* Белый цвет текста в подвале */
 }
