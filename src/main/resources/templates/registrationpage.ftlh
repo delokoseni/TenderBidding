@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,9 +34,9 @@
         <label>Форма собственности</label>
         <select name="ownershipType" required>
             <option value="" disabled selected>Выберите форму собственности</option>
-            <option value="ИП">ИП</option>
-            <option value="ООО">ООО</option>
-            <option value="ОАО">ОАО</option>
+            <th:block th:each="type : ${ownershipTypes}">
+                <option th:value="${type.id_forma_sobstvennnosti}" th:text="${type.forma}"></option>
+            </th:block>
         </select>
 
         <button type="submit">Зарегистрироваться</button>
