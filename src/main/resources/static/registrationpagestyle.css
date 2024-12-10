@@ -104,9 +104,8 @@ button:hover {
 }
 
 footer {
-    text-align: center; /* Выровнять текст в подвале по центру */
-    padding: 10px 20px;
-    background-color: #007bff; /* Синий цвет для подвала */
-    color: white; /* Белый цвет текста в подвале */
-    margin-top: auto; /* Отодвинуть подвал вниз */
+   text-align: left; /* Выровнять текст в подвале слева */
+   padding: 10px 20px;
+   background-color: #007bff; /* Синий цвет для подвала */
+   color: white; /* Белый цвет текста в подвале */
 }

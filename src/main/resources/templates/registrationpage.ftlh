@@ -43,12 +43,14 @@
             <input type="date" name="establishmentDate" required>
 
             <label>Форма собственности</label>
+
             <select name="ownershipType" required>
                 <option value="" disabled selected>Выберите форму собственности</option>
-                <th:block th:each="type : ${ownershipTypes}">
-                    <option th:value="${type.id_forma_sobstvennnosti}" th:text="${type.forma}"></option>
-                </th:block>
+                <#list ownershipTypes as type>
+                    <option value="${type.id_forma_sobstvennnosti}">${type.forma}</option>
+                </#list>
             </select>
+
 
             <button type="submit">Зарегистрироваться</button>
         </form>
