@@ -3,11 +3,17 @@ body {
     color: #333;
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
+    flex-direction: column; /* Добавлено, чтобы располагать элементы вертикально */
+    min-height: 100vh; /* Устанавливает высоту для body */
     margin: 0;
-    padding-top: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Синий цвет для шапки */
+    padding: 10px 20px;
 }
 
 .container {
@@ -18,14 +24,45 @@ body {
     width: 50%; /* Ширина контейнера */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box;
-    margin-bottom: 20px;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
 }
 
-h1 {
-    color: #007bff; /* Синий цвет заголовка */
-    margin-bottom: 20px;
-    font-size: 24px; /* Увеличьте размер заголовка, если необходимо */
+.header-container h1 {
+    color: white; /* Синий цвет заголовка */
+}
+
+.container h1 {
+    color: #007bff; /* Синий цвет заголовка формы */
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn-login {
+    background-color: orange; /* Оранжевая кнопка регистрации */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.btn-main {
+    background-color: #007bff; /* Синяя кнопка на главную */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-login:hover {
+    background-color: darkorange; /* Темнее при наведении */
+}
+
+.btn-main:hover {
+    background-color: #0056b3; /* Темнее при наведении */
 }
 
 label {
@@ -39,7 +76,7 @@ input, select {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px; /* Закругленные края для полей */
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Цвет границы полей ввода */
     box-sizing: border-box; /* Учитываем отступы и границы */
 }
 
@@ -63,5 +100,13 @@ button:hover {
 
 .required {
     color: red; /* Красный цвет для символа * */
-    margin-left: 5px; /* Отступ слева для символьного поля */
+    margin-left: 5px; /* Отступ слева для символа поля */
+}
+
+footer {
+    text-align: center; /* Выровнять текст в подвале по центру */
+    padding: 10px 20px;
+    background-color: #007bff; /* Синий цвет для подвала */
+    color: white; /* Белый цвет текста в подвале */
+    margin-top: auto; /* Отодвинуть подвал вниз */
 }
