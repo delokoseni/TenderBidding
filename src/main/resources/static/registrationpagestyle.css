@@ -1,0 +1,67 @@
+body {
+    background-color: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Изменено на flex-start для выравнивания по верхнему краю */
+    height: 100vh;
+    margin: 0;
+    padding-top: 20px; /* Добавлен отступ сверху для пространства */
+}
+
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #007bff; /* Синий цвет заголовка */
+    margin-bottom: 20px;
+    font-size: 24px; /* Увеличьте размер заголовка, если необходимо */
+}
+
+label {
+    display: block; /* Каждый label занимает новую строку */
+    text-align: left; /* Выровнять текст слева */
+    margin: 10px 0 5px; /* Отступ для меток */
+}
+
+input, select {
+    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px; /* Закругленные края для полей */
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Учитываем отступы и границы */
+}
+
+input::placeholder {
+    color: gray; /* Серая подсказка */
+}
+
+button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    width: 97%;
+}
+
+button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+.required {
+    color: red; /* Красный цвет для символа * */
+    margin-left: 5px; /* Отступ слева для символьного поля */
+}
