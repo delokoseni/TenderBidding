@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mainpagestyle.css">
-    <title>Главная страница</title>
+    <link rel="stylesheet" href="/loginpagestyle.css">
+    <title>Вход</title>
 </head>
 <body>
 <header>
@@ -12,16 +12,13 @@
         <h1>Сервис для проведения тендерных торгов</h1>
         <div class="buttons">
             <a href="/registration" class="btn-register">Регистрация</a>
-            <a href="/login" class="btn-login">Вход</a>
+            <a href="/" class="btn-main">На главную</a>
         </div>
     </div>
 </header>
 
 <main>
-    <div class="main-content">
-        <h2>Проводите и участвуйте в тендерных торгах по всей России!</h2>
-        <p>Для доступа к платформе <a href="/login">войдите</a> или <a href="/registration">зарегистрируйтесь</a>.</p>
-    </div>
+
 </main>
 
 <footer>
