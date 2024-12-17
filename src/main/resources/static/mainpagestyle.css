@@ -1,0 +1,73 @@
+body {
+    background-color: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Устанавливает минимальную высоту для body */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Синий цвет для шапки */
+    padding: 10px 20px;
+}
+
+h1 {
+    color: white; /* Белый цвет текста в шапке */
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn-register {
+    background-color: orange; /* Оранжевая кнопка регистрации */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.btn-login {
+    background-color: #007bff; /* Синяя кнопка входа */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-register:hover {
+    background-color: darkorange; /* Темнее при наведении */
+}
+
+.btn-login:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+main {
+    flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.main-content {
+    margin-top: 50px;
+}
+
+h2 {
+    color: #007bff; /* Синий цвет заголовка */
+}
+
+footer {
+    text-align: left; /* Выровнять текст в подвале слева */
+    padding: 10px 20px;
+    background-color: #007bff; /* Синий цвет для подвала */
+    color: white; /* Белый цвет текста в подвале */
+}

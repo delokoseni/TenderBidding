@@ -1,0 +1,112 @@
+body {
+    background-color: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* Добавлено, чтобы располагать элементы вертикально */
+    min-height: 100vh; /* Устанавливает высоту для body */
+    margin: 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Синий цвет для шапки */
+    padding: 10px 20px;
+}
+
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
+}
+
+.header-container h1 {
+    color: white; /* Синий цвет заголовка */
+}
+
+.container h1 {
+    color: #007bff; /* Синий цвет заголовка формы */
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn-login {
+    background-color: orange; /* Оранжевая кнопка регистрации */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.btn-main {
+    background-color: #007bff; /* Синяя кнопка на главную */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-login:hover {
+    background-color: darkorange; /* Темнее при наведении */
+}
+
+.btn-main:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+label {
+    display: block; /* Каждый label занимает новую строку */
+    text-align: left; /* Выровнять текст слева */
+    margin: 10px 0 5px; /* Отступ для меток */
+}
+
+input, select {
+    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px; /* Закругленные края для полей */
+    border: 1px solid #ccc; /* Цвет границы полей ввода */
+    box-sizing: border-box; /* Учитываем отступы и границы */
+}
+
+input::placeholder {
+    color: gray; /* Серая подсказка */
+}
+
+button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    width: 97%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+.required {
+    color: red; /* Красный цвет для символа * */
+    margin-left: 5px; /* Отступ слева для символа поля */
+}
+
+footer {
+    text-align: left; /* Выровнять текст в подвале слева */
+    padding: 10px 20px;
+    background-color: #007bff; /* Синий цвет для подвала */
+    color: white; /* Белый цвет текста в подвале */
+}

@@ -15,8 +15,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().permitAll() // Разрешить доступ ко всем страницам
                 )
-                .csrf(Customizer.withDefaults()); // Настройка CSRF защиты по умолчанию
-
+                .csrf(csrf -> csrf.disable()) // Отключение CSRF-защиты
+        ;
         return http.build();
     }
 }
