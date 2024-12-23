@@ -35,7 +35,7 @@ public class RegistrationPageController {
         model.addAttribute("ownershipTypes", ownershipTypes);
         List<Okved> okvedList = okvedRepository.findAll();
         model.addAttribute("okvedList", okvedList);
-        return "registrationpage"; // Шаблон, который вы используете
+        return "registrationpage";
     }
 
     @PostMapping("/registration")
@@ -46,6 +46,7 @@ public class RegistrationPageController {
             @RequestParam("organizationName") String organizationName,
             @RequestParam("inn") String inn,
             @RequestParam("ogrn") String ogrn,
+            @RequestParam("establishmentDate") LocalDate establishmentDate,
             Model model) {
 
         // Проверка на корректность вводимых данных
@@ -63,14 +64,19 @@ public class RegistrationPageController {
         // Создание нового пользователя
         Organizatsiya newOrganization = new Organizatsiya();
         newOrganization.setEmail(email);
-        newOrganization.setParol(password); // В идеале пароль должен быть зашифрован
+        newOrganization.setParol(password);
         newOrganization.setImya(organizationName);
         newOrganization.setInn(inn);
         newOrganization.setOgrn_ogrnip(ogrn);
 
+        if(establishmentDate != null)
+        {
+            newOrganization.setData_osnovaniya(establishmentDate);
+        }
+
         // Установка даты основания
-        LocalDate dataOsnovaniya = LocalDate.now(); // Устанавливаем текущую дату
-        newOrganization.setData_osnovaniya(dataOsnovaniya);
+        // LocalDate dataOsnovaniya = LocalDate.now(); // Устанавливаем текущую дату
+        //newOrganization.setData_osnovaniya(dataOsnovaniya);
 
         // Сохранение в базу данных с обработкой ошибок
         try {
