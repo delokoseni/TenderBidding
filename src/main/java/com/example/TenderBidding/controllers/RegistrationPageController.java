@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.List;
 import java.time.LocalDate;
@@ -28,6 +30,8 @@ public class RegistrationPageController {
 
     @Autowired
     private OrganizatsiyaRepository organizatsiyaRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
@@ -61,10 +65,12 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
+        String hashedPassword = passwordEncoder.encode(password);
+
         // Создание нового пользователя
         Organizatsiya newOrganization = new Organizatsiya();
         newOrganization.setEmail(email);
-        newOrganization.setParol(password);
+        newOrganization.setParol(hashedPassword);
         newOrganization.setImya(organizationName);
         newOrganization.setInn(inn);
         newOrganization.setOgrn_ogrnip(ogrn);
