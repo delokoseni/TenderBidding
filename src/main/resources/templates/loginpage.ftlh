@@ -20,7 +20,7 @@
 <main>
     <div class="container">
         <h1>Вход</h1>
-        <form action="#" method="post">
+        <form action="/createtender" method="post">
             <label>Email</label>
             <input type="text" name="email" placeholder="Email" required>
 
