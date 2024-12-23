@@ -1,0 +1,99 @@
+body {
+    background-color: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Устанавливает минимальную высоту для body */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Синий цвет для шапки */
+    padding: 10px 20px;
+}
+
+.header-container h1 {
+    color: white; /* Белый цвет текста в шапке */
+}
+
+.container h1 {
+    color: #007bff; /* Синий цвет заголовка формы */
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn-register {
+    background-color: orange; /* Оранжевая кнопка регистрации */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.btn-main {
+    background-color: #007bff; /* Синяя кнопка на главную */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-register:hover {
+    background-color: darkorange; /* Темнее при наведении */
+}
+
+.btn-main:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+main {
+   flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   padding-top: 20px; /* Отступ сверху для главного содержимого */
+   padding-bottom: 20px; /* Отступ снизу для главного содержимого */
+}
+
+label {
+   display: block; /* Каждый label занимает новую строку */
+   text-align: left; /* Выровнять текст слева */
+}
+
+input {
+   width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+   padding: 10px;
+   margin-top: 5px; /* Отступ сверху для полей ввода */
+   margin-bottom: 15px; /* Отступ снизу для полей ввода */
+   border-radius: 5px; /* Закругленные края для полей ввода */
+   border: 1px solid #ccc; /* Цвет границы полей ввода */
+}
+
+button {
+   background-color: #007bff; /* Синяя кнопка */
+   color: white;
+   border: none;
+   border-radius: 5px; /* Закругленные края кнопки */
+   padding: 10px;
+   cursor: pointer;
+   width: 97%;
+}
+
+button:hover {
+   background-color: #0056b3; /* Темнее при наведении */
+}
+
+footer {
+   text-align: left; /* Выровнять текст в подвале слева */
+   padding: 10px 20px;
+   background-color: #007bff; /* Синий цвет для подвала */
+   color: white; /* Белый цвет текста в подвале */
+}
