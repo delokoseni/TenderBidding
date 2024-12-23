@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 public class RegistrationPageController {
@@ -51,6 +51,7 @@ public class RegistrationPageController {
             @RequestParam("inn") String inn,
             @RequestParam("ogrn") String ogrn,
             @RequestParam("establishmentDate") LocalDate establishmentDate,
+            @RequestParam("ownershipType") Long ownershipTypeId,
             Model model) {
 
         // Проверка на корректность вводимых данных
@@ -74,6 +75,7 @@ public class RegistrationPageController {
         newOrganization.setImya(organizationName);
         newOrganization.setInn(inn);
         newOrganization.setOgrn_ogrnip(ogrn);
+        newOrganization.setId_forma_sobstvennosti(ownershipTypeId);
 
         if(establishmentDate != null)
         {
