@@ -21,6 +21,11 @@
 <main>
     <div class="container">
         <h1>Регистрация</h1>
+        <#if error??>
+            <div class="error-message">
+            <p>${error}</p>
+            </div>
+        </#if>
         <form action="/registration" method="post">
             <label>Email <span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="email" placeholder="Email" required>
