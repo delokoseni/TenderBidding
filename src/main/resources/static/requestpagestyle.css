@@ -1,0 +1,167 @@
+body {
+    background-color: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Устанавливает минимальную высоту для body */
+}
+
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Синий цвет для шапки */
+    padding: 10px 20px;
+}
+
+.header-container h1 {
+    color: white; /* Белый цвет текста в шапке */
+}
+
+.container h1 {
+    color: #007bff; /* Синий цвет заголовка формы */
+}
+
+main {
+    flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
+    display: flex;
+    justify-content: center;
+    align-items: start; /* Выровнять по верхнему краю */
+    text-align: center;
+    padding-top: 20px; /* Отступ сверху для главного содержимого */
+    padding-bottom: 20px; /* Отступ снизу для главного содержимого */
+}
+
+label {
+    display: flex; /* Используем Flexbox для кнопок и текста */
+    justify-content: space-between; /* Размещаем текст и кнопку по краям */
+    align-items: center; /* Центрируем по вертикали */
+    margin-bottom: 15px; /* Отступ между элементами */
+}
+
+input {
+    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    padding: 10px;
+    margin-top: 5px; /* Отступ сверху для полей ввода */
+    margin-bottom: 15px; /* Отступ снизу для полей ввода */
+    border-radius: 5px; /* Закругленные края для полей ввода */
+    border: 1px solid #ccc; /* Цвет границы полей ввода */
+}
+
+button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    width: 20%; /* Убираем фиксированную ширину */
+}
+
+.big-buttons {
+   background-color: #007bff; /* Синяя кнопка */
+   color: white;
+   border: none;
+   border-radius: 5px; /* Закругленные края кнопки */
+   padding: 10px;
+   cursor: pointer;
+   width: 97%;
+   margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+.add-button, .email-button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 5px 10px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    margin-left: 10px; /* Отступ слева от кнопки */
+}
+
+.add-button:hover, .email-button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+.results-container {
+    max-height: 320px; /* Максимальная высота для прокрутки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 10px; /* Отступ внутри */
+    background-color: #f8f8f8; /* Цвет фона */
+    margin-bottom: 15px; /* Отступ снизу перед следующими элементами */
+}
+
+.result-item {
+    display: flex; /* Используем Flexbox для расположения элементов */
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    border: 1px solid #ccc; /* Цвет границы элемента */
+    border-radius: 10px; /* Закругленные края */
+    padding: 10px; /* Отступы внутри элемента */
+    margin-bottom: 10px; /* Отступ между элементами */
+}
+
+.button-container {
+    display: flex; /* Используем Flexbox для кнопок */
+    justify-content: space-between; /* Располагаем кнопки по краям */
+}
+
+footer {
+   text-align: left; /* Выровнять текст в подвале слева */
+   padding: 10px 20px;
+   background-color: #007bff; /* Синий цвет для подвала */
+   color: white; /* Белый цвет текста в подвале */
+}
+
+.btn-download {
+    background-color: #007bff; /* Синий цвет кнопки */
+    color: white; /* Цвет текста */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругленные края */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Позволяет использовать отступы */
+    margin-top: 10px; /* Отступ сверху для кнопки */
+    margin-bottom: 10px; /* Отступ сверху для кнопки */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    width: 97%;
+}
+
+.btn-download:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+.tender-title {
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+    margin-top: 20px; /* Отступ сверху для названия */
+}
+
+.tender-description {
+    font-style: italic; /* Курсив для описания */
+    margin-top: 10px; /* Отступ сверху для описания */
+}
+
+.tender-price {
+    color: #007bff; /* Синий цвет для цены */
+    font-weight: bold; /* Жирный шрифт для цены */
+    margin-top: 10px; /* Отступ сверху для цены */
+}
