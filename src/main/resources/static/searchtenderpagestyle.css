@@ -24,35 +24,6 @@ body {
     color: #007bff; /* Синий цвет заголовка формы */
 }
 
-.buttons {
-    display: flex;
-}
-
-.btn-register {
-    background-color: orange; /* Оранжевая кнопка регистрации */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-right: 10px;
-}
-
-.btn-main {
-    background-color: #007bff; /* Синяя кнопка на главную */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-register:hover {
-    background-color: darkorange; /* Темнее при наведении */
-}
-
-.btn-main:hover {
-    background-color: #0056b3; /* Темнее при наведении */
-}
-
 main {
    flex-grow: 1; /* Позволяет main занимать оставшееся пространство */
    display: flex;
@@ -91,9 +62,89 @@ button:hover {
    background-color: #0056b3; /* Темнее при наведении */
 }
 
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
+}
+
 footer {
    text-align: left; /* Выровнять текст в подвале слева */
    padding: 10px 20px;
    background-color: #007bff; /* Синий цвет для подвала */
    color: white; /* Белый цвет текста в подвале */
+}
+
+.search-input {
+    width: calc(100% - 22px); /* Уменьшите ширину */
+    padding: 10px; /* Отступы внутри */
+    margin-bottom: 20px; /* Отступ снизу */
+    border-radius: 5px; /* Закругленные края */
+    border: 1px solid #ccc; /* Цвет границы */
+}
+
+.results-container {
+    max-height: 320px; /* Максимальная высота для прокрутки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 10px; /* Отступ внутри */
+    background-color: #f8f8f8; /* Цвет фона */
+}
+
+.result-item {
+    display: flex; /* Используем Flexbox для расположения элементов */
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    border: 1px solid #ccc; /* Цвет границы элемента */
+    border-radius: 10px; /* Закругленные края */
+    padding: 10px; /* Отступы внутри элемента */
+    margin-bottom: 10px; /* Отступ между элементами */
+}
+
+.participate-button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 5px 10px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    width: 20%;
+}
+
+.participate-button:hover {
+    background-color: #0056b3; /* Темнее при наведении кнопки */
+}
+
+/* Стилизация прокрутки для WebKit-браузеров */
+.results-container::-webkit-scrollbar {
+    width: 6px; /* Устанавливает ширину скроллбара */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.results-container::-webkit-scrollbar-track {
+    background: #f8f8f8; /* Цвет фона трека */
+    border-radius: 4px; /* Закругленные края для трека */
+}
+
+.results-container::-webkit-scrollbar-thumb {
+    background: #007bff; /* Цвет ползунка */
+    border-radius: 4px; /* Закругленные края для ползунка */
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Цвет ползунка при наведении */
+}
+
+/* Стили для Firefox */
+.results-container {
+    scrollbar-width: thin; /* Задает ширину скроллбара (первичный вариант для Firefox) */
+    scrollbar-color: #007bff #f8f8f8; /* Цвет ползунка и фона трека */
 }
