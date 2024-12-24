@@ -133,3 +133,35 @@ footer {
    color: white; /* Белый цвет текста в подвале */
 }
 
+.btn-download {
+    background-color: #007bff; /* Синий цвет кнопки */
+    color: white; /* Цвет текста */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругленные края */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Позволяет использовать отступы */
+    margin-top: 10px; /* Отступ сверху для кнопки */
+    margin-bottom: 10px; /* Отступ сверху для кнопки */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    width: 97%;
+}
+
+.btn-download:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+.tender-title {
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+    margin-top: 20px; /* Отступ сверху для названия */
+}
+
+.tender-description {
+    font-style: italic; /* Курсив для описания */
+    margin-top: 10px; /* Отступ сверху для описания */
+}
+
+.tender-price {
+    color: #007bff; /* Синий цвет для цены */
+    font-weight: bold; /* Жирный шрифт для цены */
+    margin-top: 10px; /* Отступ сверху для цены */
+}
