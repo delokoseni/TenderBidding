@@ -1,0 +1,43 @@
+.menu-toggle {
+    position: fixed; /* Фиксированное положение */
+    top: 20px; /* Отступ сверху */
+    right: 20px; /* Отступ справа */
+    font-size: 30px; /* Размер шрифта */
+    cursor: pointer; /* Указатель при наведении */
+    color: orange; /* Цвет гамбургера */
+}
+
+.sidebar {
+    position: fixed; /* Фиксированное положение */
+    top: 0;
+    right: -250px; /* Скрыто за пределами экрана */
+    width: 250px; /* Ширина боковой панели */
+    height: 100%; /* Высота на весь экран */
+    background-color: #f0f0f0; /* Цвет фона меню для контраста */
+    overflow: auto; /* Прокрутка для длинных списков */
+    transition: right 0.3s ease; /* Анимация плавного появления */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Тень для боковой панели */
+}
+
+.sidebar-menu {
+    list-style-type: none; /* Убираем маркеры списков */
+    padding: 0; /* Убираем отступы */
+    margin: 0; /* Убираем отступы */
+}
+
+.sidebar-menu li a {
+    color: #333; /* Цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: block; /* Чтобы ссылки занимали всю ширину */
+    padding: 15px; /* Отступы внутри ссылок */
+}
+
+.sidebar-menu li a:hover {
+    background-color: orange; /* Цвет фона при наведении ссылок */
+    color: white; /* Цвет текста при наведении */
+}
+
+/* Показ боковой панели при активации */
+.sidebar.active {
+    right: 0; /* Сдвигаем на экран */
+}
