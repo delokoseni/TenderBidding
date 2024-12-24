@@ -42,11 +42,11 @@
         </label>
         <label>
             Дата основания: отсутствует
-            <button type="button" class="add-button">Добавить</button>
+            <button type="button" class="add-button">Изменить</button>
         </label>
         <label>
             Список ОКВЭД
-            <button type="button" class="email-button">Дополнить</button>
+            <button type="button" class="email-button">Изменить</button>
         </label>
         <div class="results-container">
             <div class="result-item">
@@ -72,7 +72,7 @@
         </div>
         <label>
             Email: art*****@****.com
-            <button type="button" class="email-button">Сменить Email</button>
+            <button type="button" class="email-button">Изменить</button>
         </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
         <button class="big-buttons" type="submit">Выход</button>
