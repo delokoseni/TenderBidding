@@ -3,26 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/menustyle.css">
     <link rel="stylesheet" href="/sendrequesttenderpagestyle.css">
     <title>Участие в тендере</title>
 </head>
 <body>
 <header>
     <div class="header-container">
-        <h1>Участие в тендере</h1>
-        <div class="buttons">
-            <a href="/registration" class="btn-register">Регистрация</a>
-            <a href="/" class="btn-main">Выход</a>
+        <h1>Сервис для проведения тендерных торгов</h1>
+        <div class="menu-toggle" id="menuToggle">&#9776;</div>
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/account">Аккаунт</a></li>
+                <li><a href="/searchtender">Поиск тендера</a></li>
+                <li><a href="/logout">Выход</a></li>
+            </ul>
         </div>
     </div>
 </header>
-
 <main>
-
+    <div class="container">
+        <h1>Участие в тендере</h1>
+        <form action="#" method="post">
+            <label class="tender-title">Название тендера: Строительство больницы в микрорайоне "Черёмушки".</label>
+            <label class="tender-description">Описание: Подходит для крупной строительной фирмы из города Барнаула,<br>
+                Срок выполнения заказа строгий и не может быть изменен. Строительство с гос. участием.</label>
+            <label class="tender-price">Стартовая цена: 479,500,000 рублей.</label>
+            <a href="path/to/your/file.pdf" class="btn-download" download>Скачать условия в формате PDF</a>
+            <label>Ваша цена<span class="required" title="Поле обязательно для заполнения">*</span></label>
+            <input type="text" name="startPrice" placeholder="Ваша цена" required>
+            <label>Прикрепить требуемый набор документов (*.pdf)<span class="required" title="Поле обязательно для заполнения">*</span></label>
+            <input type="file" name="fileUpload" required>
+            <button type="submit">Отправить заявку</button>
+        </form>
+    </div>
 </main>
-
 <footer>
     <p>АлтГТУ 2024</p>
 </footer>
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    // Открытие/закрытие меню при нажатии на "гамбургер"
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+
+    // Закрытие меню при клике вне бокового меню
+    document.addEventListener('click', (event) => {
+        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
