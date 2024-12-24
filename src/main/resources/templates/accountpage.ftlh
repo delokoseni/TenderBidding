@@ -16,6 +16,8 @@
             <ul class="sidebar-menu">
                 <li><a href="/account">Аккаунт</a></li>
                 <li><a href="/searchtender">Поиск тендера</a></li>
+                <li><a href="/myrequests">Мои заявки</a></li>
+                <li><a href="/mytenders">Мои тендеры</a></li>
                 <li><a href="/logout">Выход</a></li>
             </ul>
         </div>

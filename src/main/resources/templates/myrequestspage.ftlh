@@ -53,6 +53,7 @@
                 <button type="button" class="email-button">Отозвать</button>
             </div>
         </div>
+        <button type="button" class="big-buttons">Создать тендер</button>
     </div>
 </main>
 <footer>

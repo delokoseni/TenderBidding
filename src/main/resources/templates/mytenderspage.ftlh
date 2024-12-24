@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/menustyle.css">
-    <link rel="stylesheet" href="/searchtenderpagestyle.css">
-    <title>Поиск тендеров</title>
+    <link rel="stylesheet" href="/mytenderspagestyle.css">
+    <title>Мои тендеры</title>
 </head>
 <body>
 <header>
@@ -25,33 +25,17 @@
 </header>
 <main>
     <div class="container">
-        <h1>Поиск тендеров</h1>
-        <input type="text" class="search-input" placeholder="Поиск...">
+        <h1>Мои тендеры</h1>
         <div class="results-container">
             <div class="result-item">
-                <span>Название: Строительство больницы в микрорайоне "Черёмушки"</span>
-                <span>Стартовая цена: 479,500,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на строительство дороги</span>
-                <span>Стартовая цена: 100,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на реконструкцию моста</span>
-                <span>Стартовая цена: 150,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на строительство школы</span>
-                <span>Стартовая цена: 200,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
+                <span>Статус: Прием заявок</span>
                 <span>Название: Тендер на строительство моста</span>
-                <span>Стартовая цена: 260,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
+                <button type="button" class="email-button">Открыть</button>
+            </div>
+            <div class="result-item">
+                <span>Статус: Стадия аукциона</span>
+                <span>Название: Тендер на строительство школы</span>
+                <button type="button" class="email-button">Открыть</button>
             </div>
         </div>
     </div>
