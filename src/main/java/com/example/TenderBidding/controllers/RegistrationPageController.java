@@ -61,26 +61,30 @@ public class RegistrationPageController {
             @RequestParam("ownershipType") Long ownershipTypeId,
             Model model) {
 
-        // Проверка на корректность вводимых данных
+        // Проверка на корректность вводимых данных ПОД ВОПРОСОМ
         if (email.isEmpty() || password.isEmpty() || repeatpassword.isEmpty() ||
                 organizationName.isEmpty() || inn.isEmpty() || ogrn.isEmpty()) {
             model.addAttribute("error", "Все поля должны быть заполнены!");
+            loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
         // Проверка длины и формата email
         if (email.length() > MAX_EMAIL_LENGTH) {
             model.addAttribute("error", "Email не должен превышать " + MAX_EMAIL_LENGTH + " символов!");
+            loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
         if (!EMAIL_REGEX.matcher(email).matches()) {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
+            loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
         if (!password.equals(repeatpassword)) {
             model.addAttribute("error", "Пароли не совпадают!");
+            loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
@@ -95,8 +99,7 @@ public class RegistrationPageController {
         newOrganization.setOgrn_ogrnip(ogrn);
         newOrganization.setId_forma_sobstvennosti(ownershipTypeId);
 
-        if(establishmentDate != null)
-        {
+        if(establishmentDate != null) {
             newOrganization.setData_osnovaniya(establishmentDate);
         }
 
@@ -107,10 +110,21 @@ public class RegistrationPageController {
             return "redirect:/login"; // Переход на страницу успешной регистрации
         } catch (DataIntegrityViolationException e) {
             model.addAttribute("error", "Пользователь с таким email уже существует!");
+            loadFormData(model); // Загружаем данные для формы
         } catch (Exception e) {
             model.addAttribute("error", "Не удалось сохранить данные в базе данных: " + e.getMessage());
+            loadFormData(model); // Загружаем данные для формы
         }
 
         return "registrationpage"; // Возврат на страницу с подтверждением или ошибкой
     }
+
+    // Метод для загрузки данных формы
+    private void loadFormData(Model model) {
+        List<OwnershipType> ownershipTypes = ownershipTypeRepository.findAll();
+        model.addAttribute("ownershipTypes", ownershipTypes);
+        List<Okved> okvedList = okvedRepository.findAll();
+        model.addAttribute("okvedList", okvedList);
+    }
+
 }
