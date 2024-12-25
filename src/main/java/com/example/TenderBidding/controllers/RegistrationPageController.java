@@ -69,6 +69,13 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
+        // Проверка существования email в базе данных
+        if (organizatsiyaRepository.findByEmail(email).isPresent()) {
+            model.addAttribute("error", "Пользователь с таким email уже существует!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
         // Проверка длины и формата email
         if (email.length() > MAX_EMAIL_LENGTH) {
             model.addAttribute("error", "Email не должен превышать " + MAX_EMAIL_LENGTH + " символов!");
