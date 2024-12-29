@@ -57,17 +57,9 @@ public class RegistrationPageController {
             @RequestParam("organizationName") String organizationName,
             @RequestParam("inn") String inn,
             @RequestParam("ogrn") String ogrn,
-            @RequestParam("establishmentDate") LocalDate establishmentDate,
-            @RequestParam("ownershipType") Long ownershipTypeId,
+            @RequestParam(value = "establishmentDate", required = false) LocalDate establishmentDate,
+            @RequestParam(value = "ownershipType", required = false) Long ownershipTypeId,
             Model model) {
-
-        // Проверка на корректность вводимых данных ПОД ВОПРОСОМ
-        if (email.isEmpty() || password.isEmpty() || repeatpassword.isEmpty() ||
-                organizationName.isEmpty() || inn.isEmpty() || ogrn.isEmpty()) {
-            model.addAttribute("error", "Все поля должны быть заполнены!");
-            loadFormData(model); // Загружаем данные для формы
-            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
-        }
 
         // Проверка существования email в базе данных
         if (organizatsiyaRepository.findByEmail(email).isPresent()) {
@@ -104,11 +96,9 @@ public class RegistrationPageController {
         newOrganization.setImya(organizationName);
         newOrganization.setInn(inn);
         newOrganization.setOgrn_ogrnip(ogrn);
-        newOrganization.setId_forma_sobstvennosti(ownershipTypeId);
 
-        if(establishmentDate != null) {
-            newOrganization.setData_osnovaniya(establishmentDate);
-        }
+        newOrganization.setId_forma_sobstvennosti(ownershipTypeId);
+        newOrganization.setData_osnovaniya(establishmentDate);
 
         // Сохранение в базу данных с обработкой ошибок
         try {

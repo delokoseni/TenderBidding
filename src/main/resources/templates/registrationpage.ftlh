@@ -57,10 +57,10 @@
             <input type="text" name="ogrn" placeholder="ОГРН/ОГРНИП" required>
 
             <label>Дата основания организации</label>
-            <input type="date" name="establishmentDate" required>
+            <input type="date" name="establishmentDate">
 
             <label>Форма собственности</label>
-            <select name="ownershipType" required>
+            <select name="ownershipType">
                 <option value="" disabled selected>Выберите форму собственности</option>
                 <#list ownershipTypes as type>
                 <option value="${type.id_forma_sobstvennnosti}">${type.forma}</option>
@@ -68,7 +68,7 @@
             </select>
 
             <label>Код и расшифровка ОКВЭД</label>
-            <select name="okved" class="select2" required>
+            <select name="okved" class="select2">
                 <option value="" disabled selected>Выберите основной ОКВЭД</option>
                 <#list okvedList as okved>
                 <option value="${okved.kod}">${okved.kod} - ${okved.rasshifrovka}</option>
