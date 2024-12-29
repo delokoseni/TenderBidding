@@ -105,9 +105,6 @@ public class RegistrationPageController {
             organizatsiyaRepository.save(newOrganization);
             model.addAttribute("success", "Регистрация завершена успешно!");
             return "redirect:/login"; // Переход на страницу успешной регистрации
-        } catch (DataIntegrityViolationException e) {
-            model.addAttribute("error", "Пользователь с таким email уже существует!");
-            loadFormData(model); // Загружаем данные для формы
         } catch (Exception e) {
             model.addAttribute("error", "Не удалось сохранить данные в базе данных: " + e.getMessage());
             loadFormData(model); // Загружаем данные для формы
