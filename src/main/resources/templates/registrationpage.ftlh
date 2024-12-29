@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/registrationpagestyle.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="/js/passwordToggle.js"></script>
     <title>Регистрация</title>
 </head>
 <body>
@@ -31,10 +32,20 @@
             <input type="text" name="email" placeholder="Email" required>
 
             <label>Пароль <span class="required" title="Поле обязательно для заполнения">*</span></label>
-            <input type="password" name="password" placeholder="Пароль" required>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Пароль" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('password')" title="Показать/Скрыть пароль">
+                    <img id="eye-icon-password" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+                </span>
+            </div>
 
             <label>Повторите пароль <span class="required" title="Поле обязательно для заполнения">*</span></label>
-            <input type="password" name="repeatpassword" placeholder="Повторите пароль" required>
+            <div class="password-container">
+                <input type="password" id="repeatpassword" name="repeatpassword" placeholder="Повторите пароль" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('repeatpassword')" title="Показать/Скрыть пароль">
+                    <img id="eye-icon-repeatpassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+                </span>
+            </div>
 
             <label>Наименование организации <span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="organizationName" placeholder="Наименование организации" required>
@@ -58,7 +69,7 @@
 
             <label>Код и расшифровка ОКВЭД</label>
             <select name="okved" class="select2" required>
-                <option value="" disabled selected>Выберите ОКВЭД</option>
+                <option value="" disabled selected>Выберите основной ОКВЭД</option>
                 <#list okvedList as okved>
                 <option value="${okved.kod}">${okved.kod} - ${okved.rasshifrovka}</option>
             </#list>
