@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/loginpagestyle.css">
+    <script src="/js/passwordToggle.js"></script>
     <title>Вход</title>
 </head>
 <body>
@@ -25,7 +26,12 @@
             <input type="text" name="email" placeholder="Email" required>
 
             <label>Пароль</label>
-            <input type="password" name="password" placeholder="Пароль" required>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Пароль" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('password')" title="Показать/Скрыть пароль">
+                    <img id="eye-icon-password" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+                </span>
+            </div>
 
             <button type="submit">Войти</button>
         </form>

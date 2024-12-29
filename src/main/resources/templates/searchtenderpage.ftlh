@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/menustyle.css">
     <link rel="stylesheet" href="/searchtenderpagestyle.css">
+    <script src="/js/menuToggle.js" defer></script>
     <title>Поиск тендеров</title>
 </head>
 <body>
@@ -59,21 +60,5 @@
 <footer>
     <p>АлтГТУ 2024</p>
 </footer>
-<script>
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-
-    // Открытие/закрытие меню при нажатии на "гамбургер"
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-    });
-
-    // Закрытие меню при клике вне бокового меню
-    document.addEventListener('click', (event) => {
-        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-            sidebar.classList.remove('active');
-        }
-    });
-</script>
 </body>
 </html>
