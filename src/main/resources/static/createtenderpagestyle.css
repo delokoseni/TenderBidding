@@ -16,52 +16,12 @@ body {
     padding: 10px 20px;
 }
 
-.container {
-    background-color: #f8f8f8;
-    border: 2px solid #007bff; /* Синий цвет границы */
-    border-radius: 15px; /* Закругленные края */
-    padding: 20px; /* Отступ внутри контейнера */
-    width: 50%; /* Ширина контейнера */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    box-sizing: border-box;
-}
-
 .header-container h1 {
     color: white; /* Белый цвет текста в шапке */
 }
 
 .container h1 {
     color: #007bff; /* Синий цвет заголовка формы */
-}
-
-.buttons {
-    display: flex;
-}
-
-.btn-register {
-    background-color: orange; /* Оранжевая кнопка регистрации */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-right: 10px;
-}
-
-.btn-main {
-    background-color: #007bff; /* Синяя кнопка на главную */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-register:hover {
-    background-color: darkorange; /* Темнее при наведении */
-}
-
-.btn-main:hover {
-    background-color: #0056b3; /* Темнее при наведении */
 }
 
 main {
@@ -88,6 +48,38 @@ input {
    border: 1px solid #ccc; /* Цвет границы полей ввода */
 }
 
+input[type="file"] {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+    margin-bottom: 15px;
+}
+
+.description {
+    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    padding: 10px;
+    margin-top: 5px; /* Отступ сверху для полей ввода */
+    margin-bottom: 15px; /* Отступ снизу для полей ввода */
+    border-radius: 5px; /* Закругленные края для полей ввода */
+    border: 1px solid #ccc; /* Цвет границы полей ввода */
+    height: 100px;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
+}
+
 button {
    background-color: #007bff; /* Синяя кнопка */
    color: white;
@@ -109,16 +101,7 @@ footer {
    color: white; /* Белый цвет текста в подвале */
 }
 
-.password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
-    padding: 10px;
-    margin: 10px 0;
-}
-
-.toggle-password {
-    cursor: pointer;
-    font-size: 1em; /* Размер иконки */
+.required {
+    color: red; /* Красный цвет для символа * */
+    margin-left: 5px; /* Отступ слева для символа поля */
 }

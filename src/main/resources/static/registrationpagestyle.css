@@ -110,3 +110,21 @@ footer {
     background-color: #007bff; /* Синий цвет для подвала */
     color: white; /* Белый цвет текста в подвале */
 }
+
+.error-message p {
+    color: red;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.toggle-password {
+    cursor: pointer;
+    font-size: 1em; /* Размер иконки */
+}

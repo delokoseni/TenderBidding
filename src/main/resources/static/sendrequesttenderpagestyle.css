@@ -16,52 +16,12 @@ body {
     padding: 10px 20px;
 }
 
-.container {
-    background-color: #f8f8f8;
-    border: 2px solid #007bff; /* Синий цвет границы */
-    border-radius: 15px; /* Закругленные края */
-    padding: 20px; /* Отступ внутри контейнера */
-    width: 50%; /* Ширина контейнера */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    box-sizing: border-box;
-}
-
 .header-container h1 {
     color: white; /* Белый цвет текста в шапке */
 }
 
 .container h1 {
     color: #007bff; /* Синий цвет заголовка формы */
-}
-
-.buttons {
-    display: flex;
-}
-
-.btn-register {
-    background-color: orange; /* Оранжевая кнопка регистрации */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-right: 10px;
-}
-
-.btn-main {
-    background-color: #007bff; /* Синяя кнопка на главную */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-register:hover {
-    background-color: darkorange; /* Темнее при наведении */
-}
-
-.btn-main:hover {
-    background-color: #0056b3; /* Темнее при наведении */
 }
 
 main {
@@ -77,6 +37,18 @@ main {
 label {
    display: block; /* Каждый label занимает новую строку */
    text-align: left; /* Выровнять текст слева */
+}
+
+.container {
+    background-color: #f8f8f8;
+    border: 2px solid #007bff; /* Синий цвет границы */
+    border-radius: 15px; /* Закругленные края */
+    padding: 20px; /* Отступ внутри контейнера */
+    width: 50%; /* Ширина контейнера */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
 }
 
 input {
@@ -109,16 +81,40 @@ footer {
    color: white; /* Белый цвет текста в подвале */
 }
 
-.password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
-    padding: 10px;
-    margin: 10px 0;
+.btn-download {
+    background-color: #007bff; /* Синий цвет кнопки */
+    color: white; /* Цвет текста */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругленные края */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Позволяет использовать отступы */
+    margin-top: 10px; /* Отступ сверху для кнопки */
+    margin-bottom: 10px; /* Отступ сверху для кнопки */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    width: 97%;
 }
 
-.toggle-password {
-    cursor: pointer;
-    font-size: 1em; /* Размер иконки */
+.btn-download:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+.required {
+    color: red; /* Красный цвет для символа * */
+    margin-left: 5px; /* Отступ слева для символа поля */
+}
+
+.tender-title {
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+    margin-top: 20px; /* Отступ сверху для названия */
+}
+
+.tender-description {
+    font-style: italic; /* Курсив для описания */
+    margin-top: 10px; /* Отступ сверху для описания */
+}
+
+.tender-price {
+    color: #007bff; /* Синий цвет для цены */
+    font-weight: bold; /* Жирный шрифт для цены */
+    margin-top: 10px; /* Отступ сверху для цены */
 }
