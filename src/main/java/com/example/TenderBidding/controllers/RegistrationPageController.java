@@ -9,6 +9,7 @@ import com.example.TenderBidding.repositories.OkvedRepository;
 import com.example.TenderBidding.validators.InnValidator;
 import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.PasswordValidator;
+import com.example.TenderBidding.validators.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,6 @@ import java.time.LocalDate;
 
 @Controller
 public class RegistrationPageController {
-
-    private static final int MAX_EMAIL_LENGTH = 255;
-
-    // Регулярное выражение для проверки формата электронной почты
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$",
-            Pattern.CASE_INSENSITIVE);
 
     @Autowired
     private OkvedRepository okvedRepository;
@@ -95,13 +90,16 @@ public class RegistrationPageController {
         }
 
         // Проверка длины и формата email
-        if (email.length() > MAX_EMAIL_LENGTH) {
-            model.addAttribute("error", "Email не должен превышать " + MAX_EMAIL_LENGTH + " символов!");
+        // Проверяем длину email
+        if (!EmailValidator.isValidLength(email)) {
+            model.addAttribute("error", "Email не должен превышать "
+                    + EmailValidator.getMaxEmailLength() + " символов!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
-        if (!EMAIL_REGEX.matcher(email).matches()) {
+        // Проверяем формат email
+        if (!EmailValidator.isValidFormat(email)) {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
