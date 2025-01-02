@@ -1,8 +1,7 @@
 package com.example.TenderBidding.controllers;
 
-import com.example.TenderBidding.models.Organizatsiya;
-import com.example.TenderBidding.models.OwnershipType;
-import com.example.TenderBidding.models.Okved;
+import com.example.TenderBidding.models.*;
+import com.example.TenderBidding.repositories.OrganizatsiyaOkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
@@ -34,6 +33,9 @@ public class RegistrationPageController {
     @Autowired
     private OrganizatsiyaRepository organizatsiyaRepository;
 
+    @Autowired
+    private OrganizatsiyaOkvedRepository organizatsiyaOkvedRepository;
+
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/registration")
@@ -55,6 +57,7 @@ public class RegistrationPageController {
             @RequestParam("ogrn") String ogrn,
             @RequestParam(value = "establishmentDate", required = false) LocalDate establishmentDate,
             @RequestParam(value = "ownershipType", required = false) Long ownershipTypeId,
+            @RequestParam(value = "okved", required = false) Long okvedId,
             Model model) {
 
         // Проверка обязательных полей на наличие значений
@@ -99,11 +102,11 @@ public class RegistrationPageController {
         }
 
         // Проверяем формат email
-        if (!EmailValidator.isValidFormat(email)) {
-            model.addAttribute("error", "Введите корректный адрес электронной почты!");
-            loadFormData(model); // Загружаем данные для формы
-            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
-        }
+//        if (!EmailValidator.isValidFormat(email)) {
+//            model.addAttribute("error", "Введите корректный адрес электронной почты!");
+//            loadFormData(model); // Загружаем данные для формы
+//            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+//        }
 
         if (!InnValidator.isValidInn(inn)) {
             model.addAttribute("error", "ИНН должен быть от " + InnValidator.getMinInnLength()
@@ -150,6 +153,16 @@ public class RegistrationPageController {
         // Сохранение в базу данных с обработкой ошибок
         try {
             organizatsiyaRepository.save(newOrganization);
+            if (okvedId != null) {
+                OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
+                OrganizatsiyaOkvedId organizatsiyaOkvedId = new OrganizatsiyaOkvedId(okvedId, newOrganization.getId_organizatsii());
+                organizatsiyaOkved.setId(organizatsiyaOkvedId);
+                organizatsiyaOkved.setOkved(okvedRepository.findById(okvedId).orElse(null));
+                organizatsiyaOkved.setOrganizatsiya(newOrganization);
+
+                // Сохраняем запись о ОКВЭДе
+                organizatsiyaOkvedRepository.save(organizatsiyaOkved);
+            }
             model.addAttribute("success", "Регистрация завершена успешно!");
             return "redirect:/login"; // Переход на страницу успешной регистрации
         } catch (Exception e) {
