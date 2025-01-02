@@ -61,6 +61,17 @@ public class RegistrationPageController {
             @RequestParam(value = "ownershipType", required = false) Long ownershipTypeId,
             Model model) {
 
+        // Проверка обязательных полей на наличие значений
+        if (email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty() ||
+                organizationName == null || organizationName.trim().isEmpty() ||
+                inn == null || inn.trim().isEmpty() ||
+                ogrn == null || ogrn.trim().isEmpty()) {
+            model.addAttribute("error", "Пожалуйста, заполните все обязательные поля.");
+            loadFormData(model);
+            return "registrationpage";
+        }
+
         // Проверка существования email в базе данных
         if (organizatsiyaRepository.findByEmail(email).isPresent()) {
             model.addAttribute("error", "Пользователь с таким email уже существует!");
