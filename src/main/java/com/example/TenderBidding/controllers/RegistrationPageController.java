@@ -1,13 +1,15 @@
 package com.example.TenderBidding.controllers;
 
-import com.example.TenderBidding.models.Organizatsiya;
-import com.example.TenderBidding.models.OwnershipType;
-import com.example.TenderBidding.models.Okved;
+import com.example.TenderBidding.models.*;
+import com.example.TenderBidding.repositories.OrganizatsiyaOkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
+import com.example.TenderBidding.validators.InnValidator;
+import com.example.TenderBidding.validators.OgrnOgrnipValidator;
+import com.example.TenderBidding.validators.PasswordValidator;
+import com.example.TenderBidding.validators.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +20,9 @@ import java.util.regex.Pattern;
 
 import java.util.List;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Controller
 public class RegistrationPageController {
-
-    private static final int MAX_EMAIL_LENGTH = 255;
-
-    // Регулярное выражение для проверки формата электронной почты
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$",
-            Pattern.CASE_INSENSITIVE);
 
     @Autowired
     private OkvedRepository okvedRepository;
@@ -37,6 +32,9 @@ public class RegistrationPageController {
 
     @Autowired
     private OrganizatsiyaRepository organizatsiyaRepository;
+
+    @Autowired
+    private OrganizatsiyaOkvedRepository organizatsiyaOkvedRepository;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -59,7 +57,19 @@ public class RegistrationPageController {
             @RequestParam("ogrn") String ogrn,
             @RequestParam(value = "establishmentDate", required = false) LocalDate establishmentDate,
             @RequestParam(value = "ownershipType", required = false) Long ownershipTypeId,
+            @RequestParam(value = "okved", required = false) Long okvedId,
             Model model) {
+
+        // Проверка обязательных полей на наличие значений
+        if (email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty() ||
+                organizationName == null || organizationName.trim().isEmpty() ||
+                inn == null || inn.trim().isEmpty() ||
+                ogrn == null || ogrn.trim().isEmpty()) {
+            model.addAttribute("error", "Пожалуйста, заполните все обязательные поля.");
+            loadFormData(model);
+            return "registrationpage";
+        }
 
         // Проверка существования email в базе данных
         if (organizatsiyaRepository.findByEmail(email).isPresent()) {
@@ -68,17 +78,63 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
-        // Проверка длины и формата email
-        if (email.length() > MAX_EMAIL_LENGTH) {
-            model.addAttribute("error", "Email не должен превышать " + MAX_EMAIL_LENGTH + " символов!");
+        // Проверка существования пользователя с данным ИНН
+        if (organizatsiyaRepository.findByInn(inn).isPresent()) {
+            model.addAttribute("error", "Пользователь с таким ИНН уже существует!");
+            loadFormData(model);
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Проверка существования пользователя с данным ОГРН
+        if (organizatsiyaRepository.findByOgrn_ogrnip(ogrn).isPresent()) {
+            model.addAttribute("error", "Пользователь с таким ОГРН уже существует!");
+            loadFormData(model);
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Проверяем длину email
+        if (!EmailValidator.isValidLength(email)) {
+            model.addAttribute("error", "Email не должен превышать "
+                    + EmailValidator.getMaxEmailLength() + " символов!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
-        if (!EMAIL_REGEX.matcher(email).matches()) {
+        // Проверяем формат email
+        if (!EmailValidator.isValidFormat(email)) {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        if (!InnValidator.isValidInn(inn)) {
+            model.addAttribute("error", "ИНН должен быть от " + InnValidator.getMinInnLength()
+                    + " до " + InnValidator.getMaxInnLength() + " символов и состоять только из цифр!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        if (!OgrnOgrnipValidator.isValidOgrnOgrnip(ogrn)) {
+            model.addAttribute("error", "ОГРН/ОГРНИП должен быть от "
+                    + OgrnOgrnipValidator.getMinOgrnOgrnipLength()
+                    + " до " + OgrnOgrnipValidator.getMaxOgrnOgrnipLength() + " символов и состоять только из цифр!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Проверка корректности даты
+        if (establishmentDate != null && establishmentDate.isAfter(LocalDate.now())) {
+            model.addAttribute("error", "Введите корректную дату основания!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Валидация пароля
+        String passwordError = PasswordValidator.validatePassword(password);
+        if (passwordError != null) {
+            model.addAttribute("error", passwordError);
+            loadFormData(model);
+            return "registrationpage";
         }
 
         if (!password.equals(repeatpassword)) {
@@ -103,10 +159,21 @@ public class RegistrationPageController {
         // Сохранение в базу данных с обработкой ошибок
         try {
             organizatsiyaRepository.save(newOrganization);
+            if (okvedId != null) {
+                OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
+                OrganizatsiyaOkvedId organizatsiyaOkvedId = new OrganizatsiyaOkvedId(okvedId, newOrganization.getId_organizatsii());
+                organizatsiyaOkved.setId(organizatsiyaOkvedId);
+                organizatsiyaOkved.setOkved(okvedRepository.findById(okvedId).orElse(null));
+                organizatsiyaOkved.setOrganizatsiya(newOrganization);
+
+                // Сохраняем запись о ОКВЭДе
+                organizatsiyaOkvedRepository.save(organizatsiyaOkved);
+            }
             model.addAttribute("success", "Регистрация завершена успешно!");
             return "redirect:/login"; // Переход на страницу успешной регистрации
         } catch (Exception e) {
-            model.addAttribute("error", "Не удалось сохранить данные в базе данных: " + e.getMessage());
+            model.addAttribute("error", "Не удалось сохранить данные в базе данных: "
+                    + e.getMessage());
             loadFormData(model); // Загружаем данные для формы
         }
 
