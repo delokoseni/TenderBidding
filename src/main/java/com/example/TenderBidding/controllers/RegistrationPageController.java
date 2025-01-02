@@ -122,6 +122,13 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
+        // Проверка корректности даты
+        if (establishmentDate != null && establishmentDate.isAfter(LocalDate.now())) {
+            model.addAttribute("error", "Введите корректную дату основания!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
         // Валидация пароля
         String passwordError = PasswordValidator.validatePassword(password);
         if (passwordError != null) {
