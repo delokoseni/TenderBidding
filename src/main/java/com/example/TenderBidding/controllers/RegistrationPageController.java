@@ -92,7 +92,6 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
-        // Проверка длины и формата email
         // Проверяем длину email
         if (!EmailValidator.isValidLength(email)) {
             model.addAttribute("error", "Email не должен превышать "
@@ -102,11 +101,11 @@ public class RegistrationPageController {
         }
 
         // Проверяем формат email
-//        if (!EmailValidator.isValidFormat(email)) {
-//            model.addAttribute("error", "Введите корректный адрес электронной почты!");
-//            loadFormData(model); // Загружаем данные для формы
-//            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
-//        }
+        if (!EmailValidator.isValidFormat(email)) {
+            model.addAttribute("error", "Введите корректный адрес электронной почты!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
 
         if (!InnValidator.isValidInn(inn)) {
             model.addAttribute("error", "ИНН должен быть от " + InnValidator.getMinInnLength()
