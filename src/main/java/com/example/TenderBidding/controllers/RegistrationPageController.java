@@ -6,6 +6,7 @@ import com.example.TenderBidding.models.Okved;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
+import com.example.TenderBidding.validators.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -90,6 +91,14 @@ public class RegistrationPageController {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Валидация пароля
+        String passwordError = PasswordValidator.validatePassword(password);
+        if (passwordError != null) {
+            model.addAttribute("error", passwordError);
+            loadFormData(model);
+            return "registrationpage";
         }
 
         if (!password.equals(repeatpassword)) {
