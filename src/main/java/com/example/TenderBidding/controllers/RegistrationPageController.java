@@ -6,6 +6,8 @@ import com.example.TenderBidding.models.Okved;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
+import com.example.TenderBidding.validators.InnValidator;
+import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,7 +94,6 @@ public class RegistrationPageController {
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
 
-
         // Проверка длины и формата email
         if (email.length() > MAX_EMAIL_LENGTH) {
             model.addAttribute("error", "Email не должен превышать " + MAX_EMAIL_LENGTH + " символов!");
@@ -102,6 +103,21 @@ public class RegistrationPageController {
 
         if (!EMAIL_REGEX.matcher(email).matches()) {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        if (!InnValidator.isValidInn(inn)) {
+            model.addAttribute("error", "ИНН должен быть от " + InnValidator.getMinInnLength()
+                    + " до " + InnValidator.getMaxInnLength() + " символов и состоять только из цифр!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        if (!OgrnOgrnipValidator.isValidOgrnOgrnip(ogrn)) {
+            model.addAttribute("error", "ОГРН/ОГРНИП должен быть от "
+                    + OgrnOgrnipValidator.getMinOgrnOgrnipLength()
+                    + " до " + OgrnOgrnipValidator.getMaxOgrnOgrnipLength() + " символов и состоять только из цифр!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
@@ -139,7 +155,8 @@ public class RegistrationPageController {
             model.addAttribute("success", "Регистрация завершена успешно!");
             return "redirect:/login"; // Переход на страницу успешной регистрации
         } catch (Exception e) {
-            model.addAttribute("error", "Не удалось сохранить данные в базе данных: " + e.getMessage());
+            model.addAttribute("error", "Не удалось сохранить данные в базе данных: "
+                    + e.getMessage());
             loadFormData(model); // Загружаем данные для формы
         }
 
