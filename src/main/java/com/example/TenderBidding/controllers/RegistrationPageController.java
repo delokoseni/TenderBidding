@@ -8,7 +8,6 @@ import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
 import com.example.TenderBidding.validators.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,6 @@ import java.util.regex.Pattern;
 
 import java.util.List;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Controller
 public class RegistrationPageController {
@@ -79,6 +77,21 @@ public class RegistrationPageController {
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }
+
+        // Проверка существования пользователя с данным ИНН
+        if (organizatsiyaRepository.findByInn(inn).isPresent()) {
+            model.addAttribute("error", "Пользователь с таким ИНН уже существует!");
+            loadFormData(model);
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        // Проверка существования пользователя с данным ОГРН
+        if (organizatsiyaRepository.findByOgrn_ogrnip(ogrn).isPresent()) {
+            model.addAttribute("error", "Пользователь с таким ОГРН уже существует!");
+            loadFormData(model);
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
 
         // Проверка длины и формата email
         if (email.length() > MAX_EMAIL_LENGTH) {
