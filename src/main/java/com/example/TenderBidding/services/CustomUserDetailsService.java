@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,18 +18,19 @@ public class CustomUserDetailsService implements UserDetailsService {
     private OrganizatsiyaRepository organizatsiyaRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Organizatsiya> organizatsiya = organizatsiyaRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Organizatsiya> organizatsiya = organizatsiyaRepository.findByEmail(username);
         if (organizatsiya.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // Возвращаем объект UserDetails (можете создать собственный класс, если потребуется)
+        // Возвращаем объект UserDetails. Пароль будет проверен автоматически Spring Security
         return new org.springframework.security.core.userdetails.User(
                 organizatsiya.get().getEmail(),
-                organizatsiya.get().getParol(), // Убедитесь в том, что пароль зашифрован
+                organizatsiya.get().getParol(), // Убедитесь, что это хэшированный пароль
                 true, true, true, true,
                 new ArrayList<>()
         );
     }
+
 }

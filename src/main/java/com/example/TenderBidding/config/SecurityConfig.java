@@ -23,11 +23,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/registration", "/css/**", "/js/**", "/icons/**").permitAll() // Разрешить доступ ко всем страницам и статическим ресурсам
-                        .anyRequest().authenticated() // Остальные запросы требуют аутентификации
+                        .requestMatchers("/", "/login", "/registration", "/css/**", "/js/**", "/icons/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/account") // Перенаправление по умолчанию после успешного входа
                         .permitAll()
                 )
                 .logout(logout -> logout

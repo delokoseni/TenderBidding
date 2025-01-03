@@ -21,9 +21,12 @@
 <main>
     <div class="container">
         <h1>Вход</h1>
-        <form action="/createtender" method="post">
+        <#if error??>
+            <div class="error-message" style="color: red;">${error}</div>
+        </#if>
+    <form action="/login" method="post">
             <label>Email</label>
-            <input type="text" name="email" placeholder="Email" required>
+            <input type="text" name="username" placeholder="Email" required>
 
             <label>Пароль</label>
             <div class="password-container">
