@@ -32,7 +32,11 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .permitAll()
+                        .logoutUrl("/logout") // URL для логаута
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID") // Удаляем куки сессии
+                        .logoutSuccessUrl("/login") // Страница перенаправления после успешного выхода
                 )
                 .csrf(csrf -> csrf.disable());
         return http.build();
