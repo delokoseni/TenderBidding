@@ -9,6 +9,7 @@ import com.example.TenderBidding.validators.InnValidator;
 import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.PasswordValidator;
 import com.example.TenderBidding.validators.EmailValidator;
+import com.example.TenderBidding.validators.OrganizationNameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,6 +104,20 @@ public class RegistrationPageController {
         // Проверяем формат email
         if (!EmailValidator.isValidFormat(email)) {
             model.addAttribute("error", "Введите корректный адрес электронной почты!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+        if (!OrganizationNameValidator.isValidLength(organizationName)) {
+            model.addAttribute("error", "Наименование организации не должно превышать "
+                    + OrganizationNameValidator.getMaxNameLength() + " символов!");
+            loadFormData(model); // Загружаем данные для формы
+            return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
+        }
+
+// Проверяем формат наименования организации
+        if (!OrganizationNameValidator.isValidFormat(organizationName)) {
+            model.addAttribute("error", "Наименование организации содержит недопустимые символы!");
             loadFormData(model); // Загружаем данные для формы
             return "registrationpage"; // Вернуть на страницу регистрации с ошибкой
         }

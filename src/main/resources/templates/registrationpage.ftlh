@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/registrationpagestyle.css">
+    <link rel="stylesheet" href="/css/registrationpagestyle.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="/js/passwordToggle.js"></script>
     <title>Регистрация</title>

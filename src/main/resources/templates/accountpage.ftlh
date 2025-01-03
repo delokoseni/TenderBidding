@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/menustyle.css">
-    <link rel="stylesheet" href="/accountpagestyle.css">
+    <link rel="stylesheet" href="/css/menustyle.css">
+    <link rel="stylesheet" href="/css/accountpagestyle.css">
     <script src="/js/menuToggle.js" defer></script>
     <title>Аккаунт</title>
 </head>
