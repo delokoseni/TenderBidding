@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/menustyle.css">
-    <link rel="stylesheet" href="/createtenderpagestyle.css">
+    <link rel="stylesheet" href="/css/menustyle.css">
+    <link rel="stylesheet" href="/css/createtenderpagestyle.css">
     <script src="/js/menuToggle.js" defer></script>
     <title>Создание тендера</title>
 </head>
