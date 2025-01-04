@@ -88,7 +88,9 @@
             <button type="button" class="email-button">Изменить</button>
         </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
-        <button class="big-buttons" type="submit">Выход</button>
+        <form action="/logout" method="post" style="display: inline;">
+            <button class="big-buttons" type="submit">Выход</button>
+        </form>
     </div>
 </main>
 <footer>
