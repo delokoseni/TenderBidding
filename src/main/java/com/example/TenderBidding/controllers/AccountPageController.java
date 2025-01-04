@@ -1,7 +1,9 @@
 package com.example.TenderBidding.controllers;
 
 import com.example.TenderBidding.models.Organizatsiya;
+import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
+import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Optional;
+
 @Controller
 public class AccountPageController {
 
     @Autowired
     private OrganizatsiyaRepository organizatsiyaRepository;
+    @Autowired
+    private OwnershipTypeRepository ownershipTypeRepository;
 
     @GetMapping("/account")
     public String showAccountPage(Model model) {
@@ -29,7 +35,12 @@ public class AccountPageController {
         model.addAttribute("organizationName", organizatsiya.getImya());
         model.addAttribute("inn", organizatsiya.getInn());
         model.addAttribute("ogrn", organizatsiya.getOgrn_ogrnip());
-        model.addAttribute("ownershipType", organizatsiya.getId_forma_sobstvennosti());
+        if (organizatsiya.getId_forma_sobstvennosti() != null) {
+            Optional<OwnershipType> ownershipTypeOpt = ownershipTypeRepository.findById_forma_sobstvennnosti(organizatsiya.getId_forma_sobstvennosti());
+            model.addAttribute("ownershipType", ownershipTypeOpt.map(OwnershipType::getForma).orElse("отсутствует"));
+        } else {
+            model.addAttribute("ownershipType", "отсутствует");
+        }
         model.addAttribute("establishmentDate", organizatsiya.getData_osnovaniya());
         model.addAttribute("email", organizatsiya.getEmail());
 
