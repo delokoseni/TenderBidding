@@ -28,24 +28,34 @@
     <div class="container">
         <h1>Аккаунт</h1>
         <label>
-            Наименование организации: БельшКорп
+            Наименование организации: ${organizationName}
             <button type="button" class="email-button">Изменить</button>
         </label>
         <label>
-            ИНН: 1234567894
+            ИНН: ${inn}
             <button type="button" class="email-button">Изменить</button>
         </label>
         <label>
-            ОГРН/ОГРНИП: 756890123456789
+            ОГРН/ОГРНИП: ${ogrn}
             <button type="button" class="email-button">Изменить</button>
         </label>
         <label>
-            Форма собственности: ООО
-            <button type="button" class="email-button">Изменить</button>
+            Форма собственности:
+            <#if ownershipType?exists && ownershipType?trim != "">
+            ${ownershipType}
+            <#else>
+            отсутствует
+        </#if>
+        <button type="button" class="email-button" disabled>Изменить</button>
         </label>
         <label>
-            Дата основания: отсутствует
-            <button type="button" class="add-button">Изменить</button>
+            Дата основания:
+            <#if establishmentDate?exists && establishmentDate?trim != "">
+            ${establishmentDate}
+            <#else>
+            отсутствует
+        </#if>
+        <button type="button" class="add-button" disabled>Изменить</button>
         </label>
         <label>
             Список ОКВЭД
@@ -74,7 +84,7 @@
             </div>
         </div>
         <label>
-            Email: art*****@****.com
+            Email: ${email}
             <button type="button" class="email-button">Изменить</button>
         </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
