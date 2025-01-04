@@ -58,7 +58,7 @@ public class RegistrationPageController {
             @RequestParam("ogrn") String ogrn,
             @RequestParam(value = "establishmentDate", required = false) LocalDate establishmentDate,
             @RequestParam(value = "ownershipType", required = false) Long ownershipTypeId,
-            @RequestParam(value = "okved", required = false) Long okvedId,
+            @RequestParam(value = "okved", required = false) String okvedKod,
             Model model) {
 
         // Проверка обязательных полей на наличие значений
@@ -174,15 +174,19 @@ public class RegistrationPageController {
         // Сохранение в базу данных с обработкой ошибок
         try {
             organizatsiyaRepository.save(newOrganization);
-            if (okvedId != null) {
-                OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
-                OrganizatsiyaOkvedId organizatsiyaOkvedId = new OrganizatsiyaOkvedId(okvedId, newOrganization.getId_organizatsii());
-                organizatsiyaOkved.setId(organizatsiyaOkvedId);
-                organizatsiyaOkved.setOkved(okvedRepository.findById(okvedId).orElse(null));
-                organizatsiyaOkved.setOrganizatsiya(newOrganization);
+            if (okvedKod != null && !okvedKod.isEmpty()) {
+                // Получаем id_okved по его kod
+                Okved okved = okvedRepository.findByKod(okvedKod).orElse(null);
+                if (okved != null) {
+                    OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
+                    OrganizatsiyaOkvedId organizatsiyaOkvedId = new OrganizatsiyaOkvedId(okved.getId_okved(), newOrganization.getId_organizatsii());
+                    organizatsiyaOkved.setId(organizatsiyaOkvedId);
+                    organizatsiyaOkved.setOkved(okved);
+                    organizatsiyaOkved.setOrganizatsiya(newOrganization);
 
-                // Сохраняем запись о ОКВЭДе
-                organizatsiyaOkvedRepository.save(organizatsiyaOkved);
+                    // Сохраняем запись о ОКВЭДе
+                    organizatsiyaOkvedRepository.save(organizatsiyaOkved);
+                }
             }
             model.addAttribute("success", "Регистрация завершена успешно!");
             return "redirect:/login"; // Переход на страницу успешной регистрации
