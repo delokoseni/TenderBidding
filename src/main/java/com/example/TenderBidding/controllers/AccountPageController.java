@@ -5,12 +5,17 @@ import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -47,4 +52,25 @@ public class AccountPageController {
         // Возврат имени шаблона
         return "accountpage";
     }
+
+    @PostMapping("/updateOrganizationName")
+    public ResponseEntity<Void> updateOrganizationName(@RequestBody Map<String, String> request) {
+        String newOrganizationName = request.get("newOrganizationName");
+
+        // Получаем текущего аутентифицированного пользователя
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        // Получаем информацию о пользователе из базы данных
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        // Обновляем наименование организации
+        organizatsiya.setImya(newOrganizationName);
+        organizatsiyaRepository.save(organizatsiya); // Сохраняем изменения
+
+        // Возвращаем статус 204 No Content для успешного выполнения
+        return ResponseEntity.noContent().build();
+    }
+
 }

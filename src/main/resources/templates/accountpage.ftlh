@@ -28,8 +28,10 @@
     <div class="container">
         <h1>Аккаунт</h1>
         <label>
-            Наименование организации: ${organizationName}
-            <button type="button" class="email-button">Изменить</button>
+            Наименование организации:
+            <input type="text" name="organizationName" value="${organizationName}" readonly id="organizationInput">
+            <button type="button" class="email-button" id="editButton" onclick="enableEditing()">Изменить</button>
+            <button type="button" class="email-button" id="saveButton" style="display: none;" onclick="saveOrganizationName()">Сохранить</button>
         </label>
         <label>
             ИНН: ${inn}
@@ -96,5 +98,35 @@
 <footer>
     <p>АлтГТУ 2024</p>
 </footer>
+<script>
+    function enableEditing() {
+        document.getElementById("organizationInput").removeAttribute("readonly");
+        document.getElementById("editButton").style.display = "none"; // Скрыть кнопку "Изменить"
+        document.getElementById("saveButton").style.display = "inline-block"; // Показать кнопку "Сохранить"
+    }
+
+    function saveOrganizationName() {
+        const newName = document.getElementById("organizationInput").value;
+
+        // Отправка данных методом POST
+        fetch('/updateOrganizationName', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newOrganizationName: newName })
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById("organizationInput").setAttribute("readonly", "true");
+                document.getElementById("editButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+                document.getElementById("saveButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+                window.location.reload(); // Перезагрузить страницу для обновления данных
+            } else {
+                alert('Ошибка при сохранении.'); // Обработка ошибок
+            }
+        });
+    }
+</script>
 </body>
 </html>

@@ -132,3 +132,7 @@ footer {
    background-color: #007bff; /* Синий цвет для подвала */
    color: white; /* Белый цвет текста в подвале */
 }
+input[readonly] {
+    background-color: #e9ecef; /* Светло-серый фон для неактивного поля */
+    cursor: not-allowed; /* Курсор для неактивного состояния */
+}
