@@ -22,7 +22,9 @@ function saveOrganizationName() {
             document.getElementById("saveButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }

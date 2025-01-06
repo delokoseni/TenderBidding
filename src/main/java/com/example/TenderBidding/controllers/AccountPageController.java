@@ -4,6 +4,7 @@ import com.example.TenderBidding.models.Organizatsiya;
 import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
+import com.example.TenderBidding.validators.OrganizationNameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,8 +60,18 @@ public class AccountPageController {
     }
 
     @PostMapping("/updateOrganizationName")
-    public ResponseEntity<Void> updateOrganizationName(@RequestBody Map<String, String> request) {
+    public ResponseEntity<String> updateOrganizationName(@RequestBody Map<String, String> request) {
         String newOrganizationName = request.get("newOrganizationName");
+
+        // Проверка на допустимую длину
+        if (!OrganizationNameValidator.isValidLength(newOrganizationName)) {
+            return ResponseEntity.badRequest().body("Наименование слишком длинное. Максимальная длина: " + OrganizationNameValidator.getMaxNameLength());
+        }
+
+        // Проверка на корректный формат
+        if (!OrganizationNameValidator.isValidFormat(newOrganizationName)) {
+            return ResponseEntity.badRequest().body("Наименование содержит недопустимые символы. Разрешены только кириллица, цифры, и некоторые спецсимволы.");
+        }
 
         // Получаем текущего аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -77,6 +88,7 @@ public class AccountPageController {
         // Возвращаем статус 204 No Content для успешного выполнения
         return ResponseEntity.noContent().build();
     }
+
 
     @PostMapping("/updateInn")
     public ResponseEntity<Void> updateInn(@RequestBody Map<String, String> request) {
