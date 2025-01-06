@@ -6,6 +6,7 @@ import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -139,5 +141,31 @@ public class AccountPageController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/updateEmail")
+    public ResponseEntity<Void> updateEmail(@RequestBody Map<String, String> request, Authentication authentication) {
+        String newEmail = request.get("newEmail");
+
+        // Получаем текущего пользователя
+        String currentUserEmail = authentication.getName();
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        if (organizatsiyaRepository.findByEmail(newEmail).isPresent()) {
+            throw new RuntimeException("Пользователь с таким email уже существует!"); // Обработка существующего email
+        }
+
+        organizatsiya.setEmail(newEmail); // Устанавливаем новый email
+        organizatsiyaRepository.save(organizatsiya);
+
+        // Обновляем информацию в сессии
+        UsernamePasswordAuthenticationToken newAuth =
+                new UsernamePasswordAuthenticationToken(newEmail, null, authentication.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

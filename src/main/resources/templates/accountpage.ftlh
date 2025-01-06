@@ -92,8 +92,10 @@
             </div>
         </div>
         <label>
-            Email: ${email}
-            <button type="button" class="email-button">Изменить</button>
+            Email:
+            <input type="text" name="email" value="${email}" readonly id="emailInput">
+            <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveEmailButton" style="display: none;" onclick="saveEmail()">Сохранить</button>
         </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
         <form action="/logout" method="post" style="display: inline;">

@@ -118,3 +118,26 @@ function saveEstablishmentDate() {
         }
     });
 }
+
+function saveEmail() {
+    const newEmail = document.getElementById("emailInput").value;
+    const currentUserEmail = document.getElementById("currentUserEmail").value; // Получаем текущий email пользователя
+
+    fetch('/updateEmail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newEmail: newEmail, email: currentUserEmail })
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById("emailInput").setAttribute("readonly", "true");
+            document.getElementById("editEmailButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+            document.getElementById("saveEmailButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+            window.location.reload(); // Перезагрузить страницу для обновления данных
+        } else {
+            alert('Ошибка при сохранении email.'); // Обработка ошибок
+        }
+    });
+}
