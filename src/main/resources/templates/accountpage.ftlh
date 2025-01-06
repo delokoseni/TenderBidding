@@ -48,21 +48,22 @@
         </label>
         <label>
             Форма собственности:
-            <#if ownershipType?exists && ownershipType?trim != "">
+            <span id="ownershipTypeDisplay">
+        <#if ownershipType?exists && ownershipType?trim != "">
             ${ownershipType}
-            <#else>
+        <#else>
             отсутствует
         </#if>
-        <button type="button" class="email-button" disabled>Изменить</button>
+            </span>
+            <input type="text" id="ownershipTypeInput" value="${ownershipType!}" readonly />
+            <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
+            <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display:none;">Сохранить</button>
         </label>
         <label>
             Дата основания:
-            <#if establishmentDate?exists && establishmentDate?trim != "">
-            ${establishmentDate}
-            <#else>
-            отсутствует
-        </#if>
-        <button type="button" class="add-button" disabled>Изменить</button>
+            <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
+            <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
+            <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
         </label>
         <label>
             Список ОКВЭД

@@ -73,3 +73,48 @@ function saveOgrn() {
     });
 }
 
+function saveOwnershipType() {
+    const newOwnershipType = document.getElementById("ownershipTypeInput").value;
+    const currentUserEmail = document.getElementById("currentUserEmail").value;
+
+    fetch('/updateOwnershipType', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newOwnershipType: newOwnershipType, email: currentUserEmail })
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById("ownershipTypeInput").setAttribute("readonly", "true");
+            document.getElementById("editOwnershipTypeButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+            document.getElementById("saveOwnershipTypeButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+            window.location.reload(); // Перезагрузить страницу для обновления данных
+        } else {
+            alert('Ошибка при сохранении формы собственности.'); // Обработка ошибок
+        }
+    });
+}
+
+function saveEstablishmentDate() {
+    const newEstablishmentDate = document.getElementById("establishmentDateInput").value;
+    const currentUserEmail = document.getElementById("currentUserEmail").value;
+
+    fetch('/updateEstablishmentDate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newEstablishmentDate: newEstablishmentDate, email: currentUserEmail })
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById("establishmentDateInput").setAttribute("readonly", "true");
+            document.getElementById("editEstablishmentDateButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+            document.getElementById("saveEstablishmentDateButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+            window.location.reload(); // Перезагрузить страницу для обновления данных
+        } else {
+            alert('Ошибка при сохранении даты основания.'); // Обработка ошибок
+        }
+    });
+}

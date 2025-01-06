@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -96,6 +99,42 @@ public class AccountPageController {
                 .orElseThrow(() -> new RuntimeException("User не найден"));
 
         organizatsiya.setOgrn_ogrnip(newOgrn);
+        organizatsiyaRepository.save(organizatsiya);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/updateOwnershipType")
+    public ResponseEntity<Void> updateOwnershipType(@RequestBody Map<String, String> request) {
+        String newOwnershipType = request.get("newOwnershipType");
+        String currentUserEmail = request.get("email");
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        // Предполагая, что у вас есть метод для обновления типа собственности
+        //organizatsiya.setId_forma_sobstvennosti(/* Ваш метод для получения ID типа собственности по имени */);
+        organizatsiyaRepository.save(organizatsiya);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/updateEstablishmentDate")
+    public ResponseEntity<Void> updateEstablishmentDate(@RequestBody Map<String, String> request) {
+        String newEstablishmentDate = request.get("newEstablishmentDate");
+        String currentUserEmail = request.get("email");
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        // Преобразование строки в LocalDate
+        try {
+            LocalDate establishmentDate = LocalDate.parse(newEstablishmentDate, DateTimeFormatter.ISO_LOCAL_DATE);
+            organizatsiya.setData_osnovaniya(establishmentDate);
+        } catch (DateTimeParseException e) {
+            throw new RuntimeException("Ошибка при парсинге даты основания: " + newEstablishmentDate);
+        }
+
         organizatsiyaRepository.save(organizatsiya);
 
         return ResponseEntity.noContent().build();
