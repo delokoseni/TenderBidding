@@ -4,6 +4,7 @@ import com.example.TenderBidding.models.Organizatsiya;
 import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
+import com.example.TenderBidding.validators.InnValidator;
 import com.example.TenderBidding.validators.OrganizationNameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -91,9 +92,15 @@ public class AccountPageController {
 
 
     @PostMapping("/updateInn")
-    public ResponseEntity<Void> updateInn(@RequestBody Map<String, String> request) {
+    public ResponseEntity<String> updateInn(@RequestBody Map<String, String> request) {
         String newInn = request.get("newInn");
         String currentUserEmail = request.get("email");
+
+        // Проверка валидности ИНН
+        if (!InnValidator.isValidInn(newInn)) {
+            return ResponseEntity.badRequest().body("ИНН должен содержать от " + InnValidator.getMinInnLength() +
+                    " до " + InnValidator.getMaxInnLength() + " цифр и состоял только из цифр.");
+        }
 
         Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> new RuntimeException("User не найден"));
@@ -103,6 +110,7 @@ public class AccountPageController {
 
         return ResponseEntity.noContent().build();
     }
+
 
     @PostMapping("/updateOgrn")
     public ResponseEntity<Void> updateOgrn(@RequestBody Map<String, String> request) {

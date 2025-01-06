@@ -47,10 +47,13 @@ function saveInn() {
             document.getElementById("saveInnButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении ИНН.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении ИНН: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
+
 
 function saveOgrn() {
     const newOgrn = document.getElementById("ogrnInput").value;
