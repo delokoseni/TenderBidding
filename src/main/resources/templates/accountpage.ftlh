@@ -31,16 +31,20 @@
         <label>
             Наименование организации:
             <input type="text" name="organizationName" value="${organizationName}" readonly id="organizationInput">
-            <button type="button" class="email-button" id="editButton" onclick="enableEditing()">Изменить</button>
+            <button type="button" class="email-button" id="editButton" onclick="enableEditing('organizationInput', 'editButton', 'saveButton')">Изменить</button>
             <button type="button" class="email-button" id="saveButton" style="display: none;" onclick="saveOrganizationName()">Сохранить</button>
         </label>
         <label>
-            ИНН: ${inn}
-            <button type="button" class="email-button">Изменить</button>
+            ИНН:
+            <input type="text" name="inn" value="${inn}" readonly id="innInput">
+            <button type="button" class="email-button" id="editInnButton" onclick="enableEditing('innInput', 'editInnButton', 'saveInnButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveInnButton" style="display: none;" onclick="saveInn()">Сохранить</button>
         </label>
         <label>
-            ОГРН/ОГРНИП: ${ogrn}
-            <button type="button" class="email-button">Изменить</button>
+            ОГРН/ОГРНИП:
+            <input type="text" name="ogrn" value="${ogrn}" readonly id="ogrnInput">
+            <button type="button" class="email-button" id="editOgrnButton" onclick="enableEditing('ogrnInput', 'editOgrnButton', 'saveOgrnButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveOgrnButton" style="display: none;" onclick="saveOgrn()">Сохранить</button>
         </label>
         <label>
             Форма собственности:
@@ -98,6 +102,7 @@
 </main>
 <footer>
     <p>АлтГТУ 2024</p>
+    <input type="hidden" id="currentUserEmail" value="${email}">
 </footer>
 </body>
 </html>

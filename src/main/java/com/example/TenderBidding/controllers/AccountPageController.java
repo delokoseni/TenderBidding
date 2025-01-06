@@ -73,4 +73,32 @@ public class AccountPageController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/updateInn")
+    public ResponseEntity<Void> updateInn(@RequestBody Map<String, String> request) {
+        String newInn = request.get("newInn");
+        String currentUserEmail = request.get("email");
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        organizatsiya.setInn(newInn);
+        organizatsiyaRepository.save(organizatsiya);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/updateOgrn")
+    public ResponseEntity<Void> updateOgrn(@RequestBody Map<String, String> request) {
+        String newOgrn = request.get("newOgrn");
+        String currentUserEmail = request.get("email");
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        organizatsiya.setOgrn_ogrnip(newOgrn);
+        organizatsiyaRepository.save(organizatsiya);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
