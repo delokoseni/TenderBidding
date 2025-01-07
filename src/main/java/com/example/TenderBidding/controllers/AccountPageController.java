@@ -5,15 +5,14 @@ import com.example.TenderBidding.repositories.OkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaOkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
-import com.example.TenderBidding.validators.EmailValidator;
-import com.example.TenderBidding.validators.InnValidator;
-import com.example.TenderBidding.validators.OgrnOgrnipValidator;
-import com.example.TenderBidding.validators.OrganizationNameValidator;
+import com.example.TenderBidding.validators.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -270,5 +269,34 @@ public class AccountPageController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody Map<String, String> request, Authentication authentication) {
+        String oldPassword = request.get("oldPassword");
+        String newPassword = request.get("newPassword");
 
+        // Получаем текущего аутентифицированного пользователя
+        String currentUserEmail = authentication.getName();
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        // Сравниваем введённый старый пароль с хранимым в БД
+        if (!passwordEncoder.matches(oldPassword, organizatsiya.getParol())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный старый пароль.");
+        }
+
+        // Проверка нового пароля на валидность
+        String validationError = PasswordValidator.validatePassword(newPassword);
+        if (validationError != null) {
+            return ResponseEntity.badRequest().body(validationError);
+        }
+
+        // Если всё в порядке, шифруем новый пароль и сохраняем в БД
+        String encryptedNewPassword = passwordEncoder.encode(newPassword);
+        organizatsiya.setParol(encryptedNewPassword);
+        organizatsiyaRepository.save(organizatsiya);
+
+        return ResponseEntity.ok("Пароль успешно изменен.");
+    }
 }

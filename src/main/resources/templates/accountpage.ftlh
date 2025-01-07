@@ -81,8 +81,26 @@
             <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
             <button type="button" class="email-button" id="saveEmailButton" style="display: none;" onclick="saveEmail()">Сохранить</button>
     </label>
-        <button class="big-buttons" type="submit">Сменить пароль</button>
-        <form action="/logout" method="post" style="display: inline;">
+<!-- Кнопка для смены пароля -->
+<button class="big-buttons" onclick="openChangePasswordModal()">Сменить пароль</button>
+
+<!-- Модальное окно для смены пароля -->
+<div id="changePasswordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+    <div style="background-color:white; margin:auto; padding:20px; width:300px; position:relative; top:50%; transform:translateY(-50%);">
+        <h2>Сменить пароль</h2>
+        <form id="changePasswordForm" onsubmit="return changePassword(event)">
+            <label for="oldPassword">Старый пароль:</label>
+            <input type="password" id="oldPassword" required><br><br>
+            <label for="newPassword">Новый пароль:</label>
+            <input type="password" id="newPassword" required><br><br>
+            <label for="confirmPassword">Повторите новый пароль:</label>
+            <input type="password" id="confirmPassword" required><br><br>
+            <button type="submit">Подтвердить</button>
+        </form>
+    </div>
+</div>
+
+<form action="/logout" method="post" style="display: inline;">
             <button class="big-buttons" type="submit">Выход</button>
         </form>
     </div>

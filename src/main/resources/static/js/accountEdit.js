@@ -189,3 +189,54 @@ function saveOkved() {
         }
     });
 }
+
+function openChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'block';
+}
+
+function closeChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'none';
+}
+
+// Закрытие окна при клике вне его
+window.onclick = function(event) {
+    const modal = document.getElementById('changePasswordModal');
+    if (event.target == modal) {
+        closeChangePasswordModal();
+    }
+}
+
+function changePassword(event) {
+    event.preventDefault(); // Предотвращаем отправку формы
+
+    const oldPassword = document.getElementById('oldPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword !== confirmPassword) {
+        alert('Новый пароль не совпадает с подтверждением!');
+        return;
+    }
+
+    // Здесь добавьте код для отправки старого и нового паролей на сервер
+    fetch('/changePassword', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        })
+    }).then(response => {
+        if (response.ok) {
+            alert('Пароль успешно изменён!');
+            closeChangePasswordModal();
+        } else {
+            response.text().then(errorMessage => {
+                alert('Ошибка: ' + errorMessage);
+            });
+        }
+    });
+}
+
