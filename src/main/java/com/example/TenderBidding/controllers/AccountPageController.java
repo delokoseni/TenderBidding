@@ -5,6 +5,7 @@ import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.validators.InnValidator;
+import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.OrganizationNameValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -111,11 +112,17 @@ public class AccountPageController {
         return ResponseEntity.noContent().build();
     }
 
-
     @PostMapping("/updateOgrn")
-    public ResponseEntity<Void> updateOgrn(@RequestBody Map<String, String> request) {
+    public ResponseEntity<String> updateOgrn(@RequestBody Map<String, String> request) {
         String newOgrn = request.get("newOgrn");
         String currentUserEmail = request.get("email");
+
+        // Проверка валидности ОГРН/ОГРНИП
+        if (!OgrnOgrnipValidator.isValidOgrnOgrnip(newOgrn)) {
+            return ResponseEntity.badRequest().body("ОГРН/ОГРНИП должен содержать от " +
+                    OgrnOgrnipValidator.getMinOgrnOgrnipLength() + " до " +
+                    OgrnOgrnipValidator.getMaxOgrnOgrnipLength() + " цифр и состоять только из цифр.");
+        }
 
         Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> new RuntimeException("User не найден"));

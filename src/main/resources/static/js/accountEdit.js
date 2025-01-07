@@ -54,7 +54,6 @@ function saveInn() {
     });
 }
 
-
 function saveOgrn() {
     const newOgrn = document.getElementById("ogrnInput").value;
     const currentUserEmail = document.getElementById("currentUserEmail").value;
@@ -73,7 +72,9 @@ function saveOgrn() {
             document.getElementById("saveOgrnButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении ОГРН/ОГРНИП.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении ОГРН/ОГРНИП: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
