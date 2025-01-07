@@ -48,16 +48,16 @@
         </label>
         <label>
             Форма собственности:
-            <select name="ownershipType" id="ownershipTypeInput">
+            <select name="ownershipType" id="ownershipTypeInput" disabled>
                 <option value="" disabled <#if ownershipType == "отсутствует">selected</#if>>Выберите форму собственности</option>
-            <#list ownershipTypes as type>
-            <option value="${type.id_forma_sobstvennnosti}" <#if type.forma == ownershipType>selected</#if>>${type.forma}</option>
-    </#list>
-    </select>
-    <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
-    <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display: none;">Сохранить</button>
-    </label>
-    <label>
+                <#list ownershipTypes as type>
+                    <option value="${type.id_forma_sobstvennnosti}" <#if type.forma == ownershipType>selected</#if>>${type.forma}</option>
+                </#list>
+            </select>
+            <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
+            <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display: none;">Сохранить</button>
+        </label>
+        <label>
             Дата основания:
             <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
             <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>

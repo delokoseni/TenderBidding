@@ -79,6 +79,17 @@ function saveOgrn() {
     });
 }
 
+function enableEditing(inputId, editButtonId, saveButtonId) {
+    const inputElement = document.getElementById(inputId);
+    const editButton = document.getElementById(editButtonId);
+    const saveButton = document.getElementById(saveButtonId);
+
+    // Включаем выбор формы собственности
+    inputElement.removeAttribute("disabled");
+    editButton.style.display = "none"; // Скрыть кнопку "Изменить"
+    saveButton.style.display = "inline-block"; // Показать кнопку "Сохранить"
+}
+
 function saveOwnershipType() {
     const newOwnershipType = document.getElementById("ownershipTypeInput").value;
     const currentUserEmail = document.getElementById("currentUserEmail").value;
@@ -92,8 +103,8 @@ function saveOwnershipType() {
     })
     .then(response => {
         if (response.ok) {
-            document.getElementById("ownershipTypeInput").setAttribute("readonly", "true");
-            document.getElementById("ownershipTypeInput").style.display = "none"; // Скрыть выпадающий список
+            const inputElement = document.getElementById("ownershipTypeInput");
+            inputElement.setAttribute("disabled", "true"); // Запретить изменения после сохранения
             document.getElementById("editOwnershipTypeButton").style.display = "inline-block"; // Показать кнопку "Изменить"
             document.getElementById("saveOwnershipTypeButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных

@@ -53,7 +53,7 @@ label {
     margin-bottom: 15px; /* Отступ между элементами */
 }
 
-input {
+input, select {
     width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
     padding: 10px;
     margin-top: 5px; /* Отступ сверху для полей ввода */
