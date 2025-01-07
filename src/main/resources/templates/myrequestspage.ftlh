@@ -27,33 +27,34 @@
 <main>
     <div class="container">
         <h1>Мои заявки</h1>
+
+        <!-- Заявки на участие в тендере -->
         <label>Заявки на участие</label>
         <div class="results-container">
-            <div class="result-item">
-                <span>Статус: на рассмотрении</span>
-                <span>Название: Тендер на строительство моста</span>
-                <span>Ваша цена: 190,000,000 рублей</span>
-                <button type="button" class="email-button">Открыть</button>
-                <button type="button" class="email-button">Отозвать</button>
-            </div>
-            <div class="result-item">
-                <span>Статус: принята</span>
-                <span>Название: Тендер на строительство школы</span>
-                <span>Ваша цена: 35,000,000 рублей</span>
-                <button type="button" class="email-button">Открыть</button>
-                <button type="button" class="email-button">Отозвать</button>
-            </div>
+            <#list zayavkiNaUchastie as zayavka>
+                <div class="result-item">
+                    <span>Цена участника: ${zayavka.tsenaUchastnika} рублей</span>
+                    <span>Дата подачи: ${zayavka.dataPodachi}</span>
+                    <span>Статус: ${zayavka.idStatusZayavki}</span>
+                    <button type="button" class="email-button">Открыть</button>
+                    <button type="button" class="email-button">Отозвать</button>
+                </div>
+            </#list>
         </div>
+
+        <!-- Заявки на проведение тендера -->
         <label>Заявки на проведение</label>
         <div class="results-container">
-            <div class="result-item">
-                <span>Статус: на рассмотрении</span>
-                <span>Название: Тендер на строительство аквапарка</span>
-                <span>Стартовая цена: 60,000,000 рублей</span>
-                <button type="button" class="email-button">Открыть</button>
-                <button type="button" class="email-button">Отозвать</button>
-            </div>
+            <#list zayavkiNaProvedenie as zayavka>
+                <div class="result-item">
+                    <span>Статус: ${zayavka.dataNachalaTendera} - ${zayavka.dataOkonchaniyaTendera}</span>
+                    <span>Цена: ${zayavka.nachalnayaTsena} рублей</span>
+                    <button type="button" class="email-button">Открыть</button>
+                    <button type="button" class="email-button">Отозвать</button>
+                </div>
+            </#list>
         </div>
+
         <button type="button" class="big-buttons">Создать тендер</button>
     </div>
 </main>

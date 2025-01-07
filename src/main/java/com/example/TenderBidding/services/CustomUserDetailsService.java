@@ -2,6 +2,7 @@ package com.example.TenderBidding.services;
 
 import com.example.TenderBidding.models.Organizatsiya;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
+import com.example.TenderBidding.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,13 +25,14 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // Возвращаем объект UserDetails. Пароль будет проверен автоматически Spring Security
-        return new org.springframework.security.core.userdetails.User(
+        // Создаем объект CustomUserDetails с дополнительным полем organizationId
+        CustomUserDetails userDetails = new CustomUserDetails(
                 organizatsiya.get().getEmail(),
                 organizatsiya.get().getParol(), // Убедитесь, что это хэшированный пароль
-                true, true, true, true,
-                new ArrayList<>()
+                new ArrayList<>(), // Роли и авторизации
+                organizatsiya.get().getId_organizatsii() // ID организации
         );
-    }
 
+        return userDetails;
+    }
 }
