@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="/js/menuToggle.js" defer></script>
     <script src="/js/accountEdit.js" defer></script>
+    <script src="/js/passwordToggle.js" defer></script>
     <title>Аккаунт</title>
 </head>
 <body>
@@ -90,12 +91,30 @@
         <h2>Сменить пароль</h2>
         <form id="changePasswordForm" onsubmit="return changePassword(event)">
             <label for="oldPassword">Старый пароль:</label>
-            <input type="password" id="oldPassword" required><br><br>
+            <div class="password-container">
+                <input type="password" id="oldPassword" required placeholder="Старый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('oldPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-oldPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
             <label for="newPassword">Новый пароль:</label>
-            <input type="password" id="newPassword" required><br><br>
+            <div class="password-container">
+                <input type="password" id="newPassword" required placeholder="Новый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('newPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-newPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
             <label for="confirmPassword">Повторите новый пароль:</label>
-            <input type="password" id="confirmPassword" required><br><br>
-            <button type="submit">Подтвердить</button>
+            <div class="password-container">
+                <input type="password" id="confirmPassword" required placeholder="Повторите новый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-confirmPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
+            <button type="submit">Сменить</button>
         </form>
     </div>
 </div>

@@ -196,7 +196,11 @@ function openChangePasswordModal() {
 
 function closeChangePasswordModal() {
     document.getElementById('changePasswordModal').style.display = 'none';
+    document.getElementById('oldPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
 }
+
 
 // Закрытие окна при клике вне его
 window.onclick = function(event) {

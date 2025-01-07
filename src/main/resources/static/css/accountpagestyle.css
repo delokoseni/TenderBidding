@@ -136,3 +136,20 @@ input[readonly] {
     background-color: #e9ecef; /* Светло-серый фон для неактивного поля */
     cursor: not-allowed; /* Курсор для неактивного состояния */
 }
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1; /* Поле ввода занимает все доступное пространство */
+    padding-right: 40px; /* Увеличиваем отступ справа для совпадения с иконкой */
+}
+
+.password-container .eye-icon {
+    width: 20px; /* Ширина иконки */
+    height: 20px; /* Высота иконки */
+    cursor: pointer; /* Указатель при наведении */
+    margin-left: 5px; /* Отступ между полем и иконкой */
+}
