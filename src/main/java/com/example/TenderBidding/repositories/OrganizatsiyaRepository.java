@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface OrganizatsiyaRepository extends JpaRepository<Organizatsiya, Long> {
     Optional<Organizatsiya> findByEmail(String email);
     Optional<Organizatsiya> findByInn(String inn);
-
     /**
      * Использование @Query, скорее всего, является плохой практикой, но иначе проблему решить не вышло.
      * Дело в том, что Spring Data JPA использует Camel Case, и не видит символ "_".

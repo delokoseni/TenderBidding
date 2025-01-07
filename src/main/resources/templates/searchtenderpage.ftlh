@@ -12,7 +12,7 @@
 <header>
     <div class="header-container">
         <h1>Сервис для проведения тендерных торгов</h1>
-        <div class="menu-toggle" id="menuToggle">&#9776;</div>
+        <div class="menu-toggle" id="menuToggle">☰</div>
         <div class="sidebar" id="sidebar">
             <ul class="sidebar-menu">
                 <li><a href="/account">Аккаунт</a></li>
@@ -27,34 +27,69 @@
 <main>
     <div class="container">
         <h1>Поиск тендеров</h1>
-        <input type="text" class="search-input" placeholder="Поиск...">
-        <div class="results-container">
-            <div class="result-item">
-                <span>Название: Строительство больницы в микрорайоне "Черёмушки"</span>
-                <span>Стартовая цена: 479,500,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на строительство дороги</span>
-                <span>Стартовая цена: 100,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на реконструкцию моста</span>
-                <span>Стартовая цена: 150,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на строительство школы</span>
-                <span>Стартовая цена: 200,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-            <div class="result-item">
-                <span>Название: Тендер на строительство моста</span>
-                <span>Стартовая цена: 260,000,000 рублей</span>
-                <button class="participate-button">Участвовать</button>
-            </div>
-        </div>
+<#--        <search-container class="search-container">-->
+            <form action="/search" method="get">
+                <input type="text" name="searchTerm" placeholder="Поиск...">
+                <button type="submit" class="participate-button">Поиск</button>
+            </form>
+<#--        </search-container>-->
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Статус</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Стартовая цена</th>
+                <th>Организатор</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#if tenders?size == 0>
+                <tr>
+                    <td colspan="7" style="text-align:center;">Нет доступных тендеров</td>
+                </tr>
+            <#else>
+                <#list tenders as tender>
+                    <tr>
+                        <td>${tender.nomer}</td>
+                        <#if tender.id_statusa_tendera == 1>
+                            <td>${status1}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 2>
+                            <td>${status2}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 3>
+                            <td>${status3}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 4>
+                            <td>${status4}</td>
+                        </#if>
+                        <td>${tender.data_nachala}</td>
+                        <td>${tender.data_okonchaniya}</td>
+                        <td>${tender.nachalnaya_tsena}</td>
+                        <td>
+                            <#assign organization = "">
+                            <#list organizations as org>
+                                <#if org.id_organizatsii == tender.id_organizatora>
+                                    <#assign organization = org>
+                                </#if>
+                            </#list>
+                            <#if organization.equals(null)>
+                                Неизвестный организатор
+                            <#else>
+                                ${organization.imya}
+                            </#if>
+                        </td>
+                        <td>
+                            <button class="button">Участвовать</button>
+                        </td>
+                    </tr>
+                </#list>
+            </#if>
+            </tbody>
+        </table>
     </div>
 </main>
 <footer>

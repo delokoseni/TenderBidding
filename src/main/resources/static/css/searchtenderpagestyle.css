@@ -8,6 +8,20 @@ body {
     min-height: 100vh; /* Устанавливает минимальную высоту для body */
 }
 
+.search-container {
+    display: flex; /* Используйте Flexbox для размещения в строке */
+    align-items: center; /* Центрируем элементы по вертикали */
+    gap: 10px; /* Отступы между элементами */
+    width: 100%; /* Занимает всю доступную ширину */
+}
+.form{
+    display: flex; /* Используйте Flexbox для размещения в строке */
+    align-items: center; /* Центрируем элементы по вертикали */
+    gap: 20px; /* Отступы между элементами */
+    width: 100%; /* Занимает всю доступную ширину */
+    padding: 10px;
+    justify-content: center;
+}
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -40,12 +54,13 @@ label {
 }
 
 input {
-   width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+   width: calc(85% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
    padding: 10px;
    margin-top: 5px; /* Отступ сверху для полей ввода */
    margin-bottom: 15px; /* Отступ снизу для полей ввода */
    border-radius: 5px; /* Закругленные края для полей ввода */
    border: 1px solid #ccc; /* Цвет границы полей ввода */
+    float: left;
 }
 
 button {
@@ -67,11 +82,22 @@ button:hover {
     border: 2px solid #007bff; /* Синий цвет границы */
     border-radius: 15px; /* Закругленные края */
     padding: 20px; /* Отступ внутри контейнера */
-    width: 50%; /* Ширина контейнера */
+    width: 80%; /* Ширина контейнера */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box; /* Учитывает отступы и границы */
     margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
+}
+
+th {
+    padding: 10px 40px; /* Общие отступы для всех ячеек */
+    border: 1px solid #007bff; /* Граница ячеек таблицы */
+    text-align: center; /* Выравнивание текста по левому краю */
+}
+
+th {
+    background-color: #007bff; /* Цвет фона заголовка */
+    color: white; /* Цвет текста заголовка */
 }
 
 footer {
@@ -82,11 +108,12 @@ footer {
 }
 
 .search-input {
-    width: calc(100% - 22px); /* Уменьшите ширину */
-    padding: 10px; /* Отступы внутри */
-    margin-bottom: 20px; /* Отступ снизу */
-    border-radius: 5px; /* Закругленные края */
-    border: 1px solid #ccc; /* Цвет границы */
+    flex: 80%; /* Позволяет полю ввода занимать все доступное пространство */
+    padding: 10px;
+    margin-top: 5px; /* Отступ сверху для полей ввода */
+    margin-bottom: 15px; /* Отступ снизу для полей ввода */
+    border-radius: 5px; /* Закругленные края для полей ввода */
+    border: 1px solid #ccc; /* Цвет границы полей ввода */
 }
 
 .results-container {
@@ -110,12 +137,15 @@ footer {
 
 .participate-button {
     background-color: #007bff; /* Синяя кнопка */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем границу */
+    color: white;
+    border: none;
     border-radius: 5px; /* Закругленные края кнопки */
-    padding: 5px 10px; /* Отступы внутри кнопки */
-    cursor: pointer; /* Указатель при наведении */
-    width: 20%;
+    padding: 14px; /* Убедитесь, что достаточно отступов внутри кнопки */
+    cursor: pointer;
+    margin-bottom: 0; /* Убираем отступ снизу */
+    width: 14%;
+    float: right;
+    justify-content: center;
 }
 
 .participate-button:hover {
