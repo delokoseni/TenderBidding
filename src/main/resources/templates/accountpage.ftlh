@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/menustyle.css">
     <link rel="stylesheet" href="/css/accountpagestyle.css">
     <script src="/js/menuToggle.js" defer></script>
+    <script src="/js/accountEdit.js" defer></script>
     <title>Аккаунт</title>
 </head>
 <body>
@@ -28,24 +29,41 @@
     <div class="container">
         <h1>Аккаунт</h1>
         <label>
-            Наименование организации: БельшКорп
-            <button type="button" class="email-button">Изменить</button>
+            Наименование организации:
+            <input type="text" name="organizationName" value="${organizationName}" readonly id="organizationInput">
+            <button type="button" class="email-button" id="editButton" onclick="enableEditing('organizationInput', 'editButton', 'saveButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveButton" style="display: none;" onclick="saveOrganizationName()">Сохранить</button>
         </label>
         <label>
-            ИНН: 1234567894
-            <button type="button" class="email-button">Изменить</button>
+            ИНН:
+            <input type="text" name="inn" value="${inn}" readonly id="innInput">
+            <button type="button" class="email-button" id="editInnButton" onclick="enableEditing('innInput', 'editInnButton', 'saveInnButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveInnButton" style="display: none;" onclick="saveInn()">Сохранить</button>
         </label>
         <label>
-            ОГРН/ОГРНИП: 756890123456789
-            <button type="button" class="email-button">Изменить</button>
+            ОГРН/ОГРНИП:
+            <input type="text" name="ogrn" value="${ogrn}" readonly id="ogrnInput">
+            <button type="button" class="email-button" id="editOgrnButton" onclick="enableEditing('ogrnInput', 'editOgrnButton', 'saveOgrnButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveOgrnButton" style="display: none;" onclick="saveOgrn()">Сохранить</button>
         </label>
         <label>
-            Форма собственности: ООО
-            <button type="button" class="email-button">Изменить</button>
+            Форма собственности:
+            <span id="ownershipTypeDisplay">
+        <#if ownershipType?exists && ownershipType?trim != "">
+            ${ownershipType}
+        <#else>
+            отсутствует
+        </#if>
+            </span>
+            <input type="text" id="ownershipTypeInput" value="${ownershipType!}" readonly />
+            <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
+            <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display:none;">Сохранить</button>
         </label>
         <label>
-            Дата основания: отсутствует
-            <button type="button" class="add-button">Изменить</button>
+            Дата основания:
+            <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
+            <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
+            <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
         </label>
         <label>
             Список ОКВЭД
@@ -74,15 +92,20 @@
             </div>
         </div>
         <label>
-            Email: art*****@****.com
-            <button type="button" class="email-button">Изменить</button>
+            Email:
+            <input type="text" name="email" value="${email}" readonly id="emailInput">
+            <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
+            <button type="button" class="email-button" id="saveEmailButton" style="display: none;" onclick="saveEmail()">Сохранить</button>
         </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
-        <button class="big-buttons" type="submit">Выход</button>
+        <form action="/logout" method="post" style="display: inline;">
+            <button class="big-buttons" type="submit">Выход</button>
+        </form>
     </div>
 </main>
 <footer>
     <p>АлтГТУ 2024</p>
+    <input type="hidden" id="currentUserEmail" value="${email}">
 </footer>
 </body>
 </html>
