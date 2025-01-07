@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/menustyle.css">
     <link rel="stylesheet" href="/css/accountpagestyle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="/js/menuToggle.js" defer></script>
     <script src="/js/accountEdit.js" defer></script>
     <title>Аккаунт</title>
@@ -63,33 +64,18 @@
             <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
             <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
         </label>
-        <label>
-            Список ОКВЭД
-            <button type="button" class="email-button">Изменить</button>
-        </label>
-        <div class="results-container">
-            <div class="result-item">
-                <span>Код: 01</span>
-                <span>Расшифровка: Растениеводство и животноводство, охота и предоставление соответствующих услуг в этих областях</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 02</span>
-                <span>Расшифровка: Лесоводство и лесозаготовки</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 03</span>
-                <span>Расшифровка: Рыболовство и рыбоводство</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 04</span>
-                <span>Расшифровка: Добыча угля</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 05</span>
-                <span>Расшифровка: Добыча полезных ископаемых</span>
-            </div>
-        </div>
-        <label>
+    <label>
+        Код и расшифровка ОКВЭД:
+        <select name="okved" class="select2" id="okvedInput" disabled>
+            <option value="" disabled <#if okved == "отсутствует">selected</#if>>Выберите основной ОКВЭД</option>
+        <#list okvedList as okved>
+        <option value="${okved.kod}" <#if okved == okved.getKod()>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
+</#list>
+</select>
+<button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
+<button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;">Сохранить</button>
+</label>
+<label>
             Email:
             <input type="text" name="email" value="${email}" readonly id="emailInput">
             <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
@@ -105,5 +91,12 @@
     <p>АлтГТУ 2024</p>
     <input type="hidden" id="currentUserEmail" value="${email}">
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 </body>
 </html>

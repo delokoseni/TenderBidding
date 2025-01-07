@@ -163,3 +163,29 @@ function saveEmail() {
         }
     });
 }
+
+function saveOkved() {
+    const newOkved = document.getElementById("okvedInput").value;
+    const currentUserEmail = document.getElementById("currentUserEmail").value;
+
+    fetch('/updateOkved', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newOkved, email: currentUserEmail })
+    })
+    .then(response => {
+        if (response.ok) {
+            const inputElement = document.getElementById("okvedInput");
+            inputElement.setAttribute("disabled", "true"); // Запретить изменения после сохранения
+            document.getElementById("editOkvedButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+            document.getElementById("saveOkvedButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+            window.location.reload(); // Перезагрузить страницу для обновления данных
+        } else {
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении ОКВЭД: ' + errorMessage); // Обработка ошибок с сообщением
+            });
+        }
+    });
+}

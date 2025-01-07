@@ -1,7 +1,8 @@
 package com.example.TenderBidding.controllers;
 
-import com.example.TenderBidding.models.Organizatsiya;
-import com.example.TenderBidding.models.OwnershipType;
+import com.example.TenderBidding.models.*;
+import com.example.TenderBidding.repositories.OkvedRepository;
+import com.example.TenderBidding.repositories.OrganizatsiyaOkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.validators.EmailValidator;
@@ -35,6 +36,11 @@ public class AccountPageController {
     private OrganizatsiyaRepository organizatsiyaRepository;
     @Autowired
     private OwnershipTypeRepository ownershipTypeRepository;
+    @Autowired
+    private OkvedRepository okvedRepository;
+
+    @Autowired
+    private OrganizatsiyaOkvedRepository organizatsiyaOkvedRepository;
 
     @GetMapping("/account")
     public String showAccountPage(Model model) {
@@ -64,6 +70,19 @@ public class AccountPageController {
         model.addAttribute("email", organizatsiya.getEmail());
         List<OwnershipType> ownershipTypes = ownershipTypeRepository.findAll();
         model.addAttribute("ownershipTypes", ownershipTypes);
+
+        // Получаем основной ОКВЭД
+        List<OrganizatsiyaOkved> organizatsiyaOkveds = organizatsiyaOkvedRepository.findByOrganizatsiya(organizatsiya);
+        if (!organizatsiyaOkveds.isEmpty()) {
+            // Предполагаем, что у организации может быть только один основной ОКВЭД
+            model.addAttribute("okved", organizatsiyaOkveds.get(0).getOkved().getKod());
+        } else {
+            model.addAttribute("okved", "отсутствует");
+        }
+
+        // Получаем список всех доступных ОКВЭДов
+        List<Okved> okvedList = okvedRepository.findAll(); // Предполагается, что у вас есть репозиторий для ОКВЭДов
+        model.addAttribute("okvedList", okvedList);
 
         return "accountpage";
     }
@@ -213,5 +232,32 @@ public class AccountPageController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/updateOkved")
+    public ResponseEntity<String> updateOkved(@RequestBody Map<String, String> request) {
+        String newOkvedId = request.get("newOkved");
+        String currentUserEmail = request.get("email");
+
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
+                .orElseThrow(() -> new RuntimeException("User не найден"));
+
+        if (newOkvedId == null || newOkvedId.isEmpty()) {
+            return ResponseEntity.badRequest().body("ОКВЭД не выбран."); // Обработка ошибки "пустой" выбор
+        }
+
+        Okved okved = okvedRepository.findById(Long.parseLong(newOkvedId))
+                .orElseThrow(() -> new RuntimeException("ОКВЭД не найден"));
+
+        // Создаём или обновляем связь с ОКВЭДом
+        OrganizatsiyaOkvedId okvedId = new OrganizatsiyaOkvedId(okved.getId_okved(), organizatsiya.getId_organizatsii());
+        OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
+        organizatsiyaOkved.setId(okvedId);
+        organizatsiyaOkved.setOkved(okved);
+        organizatsiyaOkved.setOrganizatsiya(organizatsiya);
+
+        // Здесь вы должны решить, хотите ли вы добавить новую запись или обновить существующую
+        organizatsiyaOkvedRepository.save(organizatsiyaOkved);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }
