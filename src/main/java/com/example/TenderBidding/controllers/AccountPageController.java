@@ -73,15 +73,17 @@ public class AccountPageController {
 
         // Получаем основной ОКВЭД
         List<OrganizatsiyaOkved> organizatsiyaOkveds = organizatsiyaOkvedRepository.findByOrganizatsiya(organizatsiya);
+        String selectedOkvedKod = "отсутствует"; // По умолчанию
+
         if (!organizatsiyaOkveds.isEmpty()) {
-            // Предполагаем, что у организации может быть только один основной ОКВЭД
-            model.addAttribute("okved", organizatsiyaOkveds.get(0).getOkved().getKod());
-        } else {
-            model.addAttribute("okved", "отсутствует");
+            // Извлекаем код основного ОКВЭД
+            selectedOkvedKod = organizatsiyaOkveds.get(0).getOkved().getKod();
         }
 
+        model.addAttribute("selectedOkvedKod", selectedOkvedKod);
+
         // Получаем список всех доступных ОКВЭДов
-        List<Okved> okvedList = okvedRepository.findAll(); // Предполагается, что у вас есть репозиторий для ОКВЭДов
+        List<Okved> okvedList = okvedRepository.findAll();
         model.addAttribute("okvedList", okvedList);
 
         return "accountpage";

@@ -67,20 +67,20 @@
     <label>
         Код и расшифровка ОКВЭД:
         <select name="okved" class="select2" id="okvedInput" disabled>
-            <option value="" disabled <#if okved == "отсутствует">selected</#if>>Выберите основной ОКВЭД</option>
-        <#list okvedList as okved>
-        <option value="${okved.kod}" <#if okved == okved.getKod()>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
-</#list>
-</select>
-<button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
-<button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;">Сохранить</button>
-</label>
-<label>
-            Email:
+            <option value="" disabled <#if selectedOkvedKod == "отсутствует">selected</#if>>Выберите основной ОКВЭД</option>
+            <#list okvedList as okved>
+            <option value="${okved.kod}" <#if selectedOkvedKod == okved.kod>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
+            </#list>
+        </select>
+        <button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
+        <button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;">Сохранить</button>
+    </label>
+    <label>
+        Email:
             <input type="text" name="email" value="${email}" readonly id="emailInput">
             <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
             <button type="button" class="email-button" id="saveEmailButton" style="display: none;" onclick="saveEmail()">Сохранить</button>
-        </label>
+    </label>
         <button class="big-buttons" type="submit">Сменить пароль</button>
         <form action="/logout" method="post" style="display: inline;">
             <button class="big-buttons" type="submit">Выход</button>
