@@ -24,6 +24,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,16 +50,21 @@ public class AccountPageController {
         model.addAttribute("organizationName", organizatsiya.getImya());
         model.addAttribute("inn", organizatsiya.getInn());
         model.addAttribute("ogrn", organizatsiya.getOgrn_ogrnip());
+
+        // Получаем форму собственности
         if (organizatsiya.getId_forma_sobstvennosti() != null) {
-            Optional<OwnershipType> ownershipTypeOpt = ownershipTypeRepository.findById_forma_sobstvennnosti(organizatsiya.getId_forma_sobstvennosti());
-            model.addAttribute("ownershipType", ownershipTypeOpt.map(OwnershipType::getForma).orElse("отсутствует"));
+            OwnershipType ownershipType = ownershipTypeRepository.findById_forma_sobstvennnosti(organizatsiya.getId_forma_sobstvennosti())
+                    .orElseThrow(() -> new RuntimeException("Ownership type not found"));
+            model.addAttribute("ownershipType", ownershipType.getForma());
         } else {
             model.addAttribute("ownershipType", "отсутствует");
         }
+
         model.addAttribute("establishmentDate", organizatsiya.getData_osnovaniya());
         model.addAttribute("email", organizatsiya.getEmail());
+        List<OwnershipType> ownershipTypes = ownershipTypeRepository.findAll();
+        model.addAttribute("ownershipTypes", ownershipTypes);
 
-        // Возврат имени шаблона
         return "accountpage";
     }
 
@@ -135,15 +141,21 @@ public class AccountPageController {
     }
 
     @PostMapping("/updateOwnershipType")
-    public ResponseEntity<Void> updateOwnershipType(@RequestBody Map<String, String> request) {
-        String newOwnershipType = request.get("newOwnershipType");
+    public ResponseEntity<String> updateOwnershipType(@RequestBody Map<String, String> request) {
+        String newOwnershipTypeId = request.get("newOwnershipType");
         String currentUserEmail = request.get("email");
 
         Organizatsiya organizatsiya = organizatsiyaRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> new RuntimeException("User не найден"));
 
-        // Предполагая, что у вас есть метод для обновления типа собственности
-        //organizatsiya.setId_forma_sobstvennosti(/* Ваш метод для получения ID типа собственности по имени */);
+        if (newOwnershipTypeId == null || newOwnershipTypeId.isEmpty()) {
+            return ResponseEntity.badRequest().body("Форма собственности не выбрана."); // Обработка ошибки "пустой" выбор
+        }
+
+        OwnershipType ownershipType = ownershipTypeRepository.findById(Long.parseLong(newOwnershipTypeId))
+                .orElseThrow(() -> new RuntimeException("Форма собственности не найдена"));
+
+        organizatsiya.setId_forma_sobstvennosti(ownershipType.getId_forma_sobstvennnosti());
         organizatsiyaRepository.save(organizatsiya);
 
         return ResponseEntity.noContent().build();

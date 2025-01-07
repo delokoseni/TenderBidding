@@ -88,16 +88,19 @@ function saveOwnershipType() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newOwnershipType: newOwnershipType, email: currentUserEmail })
+        body: JSON.stringify({ newOwnershipType, email: currentUserEmail })
     })
     .then(response => {
         if (response.ok) {
             document.getElementById("ownershipTypeInput").setAttribute("readonly", "true");
+            document.getElementById("ownershipTypeInput").style.display = "none"; // Скрыть выпадающий список
             document.getElementById("editOwnershipTypeButton").style.display = "inline-block"; // Показать кнопку "Изменить"
             document.getElementById("saveOwnershipTypeButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении формы собственности.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении формы собственности: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
