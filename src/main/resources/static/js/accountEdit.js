@@ -143,7 +143,9 @@ function saveEmail() {
             document.getElementById("saveEmailButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении email.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении email: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }

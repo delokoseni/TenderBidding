@@ -4,6 +4,7 @@ import com.example.TenderBidding.models.Organizatsiya;
 import com.example.TenderBidding.models.OwnershipType;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
+import com.example.TenderBidding.validators.EmailValidator;
 import com.example.TenderBidding.validators.InnValidator;
 import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.OrganizationNameValidator;
@@ -170,8 +171,14 @@ public class AccountPageController {
     }
 
     @PostMapping("/updateEmail")
-    public ResponseEntity<Void> updateEmail(@RequestBody Map<String, String> request, Authentication authentication) {
+    public ResponseEntity<String> updateEmail(@RequestBody Map<String, String> request, Authentication authentication) {
         String newEmail = request.get("newEmail");
+
+        // Проверка валидности email
+        if (!EmailValidator.isValidLength(newEmail) || !EmailValidator.isValidFormat(newEmail)) {
+            return ResponseEntity.badRequest().body("Неверный формат или длина email. Должен быть не более " +
+                    EmailValidator.getMaxEmailLength() + " символов и соответствовать стандартному формату email.");
+        }
 
         // Получаем текущего пользователя
         String currentUserEmail = authentication.getName();
@@ -180,7 +187,7 @@ public class AccountPageController {
                 .orElseThrow(() -> new RuntimeException("User не найден"));
 
         if (organizatsiyaRepository.findByEmail(newEmail).isPresent()) {
-            throw new RuntimeException("Пользователь с таким email уже существует!"); // Обработка существующего email
+            return ResponseEntity.badRequest().body("Пользователь с таким email уже существует!"); // Обработка существующего email
         }
 
         organizatsiya.setEmail(newEmail); // Устанавливаем новый email
