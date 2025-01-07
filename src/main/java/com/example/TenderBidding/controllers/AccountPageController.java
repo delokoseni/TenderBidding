@@ -247,17 +247,26 @@ public class AccountPageController {
         Okved okved = okvedRepository.findById(Long.parseLong(newOkvedId))
                 .orElseThrow(() -> new RuntimeException("ОКВЭД не найден"));
 
-        // Создаём или обновляем связь с ОКВЭДом
-        OrganizatsiyaOkvedId okvedId = new OrganizatsiyaOkvedId(okved.getId_okved(), organizatsiya.getId_organizatsii());
+        // Проверяем, есть ли уже существующий ОКВЭД для данной организации
+        List<OrganizatsiyaOkved> organizatsiyaOkveds = organizatsiyaOkvedRepository.findByOrganizatsiya(organizatsiya);
+
+        // Если запись существует, удаляем её
+        if (!organizatsiyaOkveds.isEmpty()) {
+            organizatsiyaOkvedRepository.delete(organizatsiyaOkveds.get(0)); // Удаляем только первую запись, если их несколько
+        }
+
+        // Создаём новую связь с ОКВЭДом
+        OrganizatsiyaOkvedId newOkvedIdOOI = new OrganizatsiyaOkvedId(okved.getId_okved(), organizatsiya.getId_organizatsii());
         OrganizatsiyaOkved organizatsiyaOkved = new OrganizatsiyaOkved();
-        organizatsiyaOkved.setId(okvedId);
+        organizatsiyaOkved.setId(newOkvedIdOOI);
         organizatsiyaOkved.setOkved(okved);
         organizatsiyaOkved.setOrganizatsiya(organizatsiya);
 
-        // Здесь вы должны решить, хотите ли вы добавить новую запись или обновить существующую
+        // Сохраняем новую запись
         organizatsiyaOkvedRepository.save(organizatsiyaOkved);
 
         return ResponseEntity.noContent().build();
     }
+
 
 }
