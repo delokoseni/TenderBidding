@@ -5,7 +5,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Устанавливает минимальную высоту для body */
+    min-height: 120vh; /* Устанавливает минимальную высоту для body */
 }
 
 .container {
@@ -69,7 +69,22 @@ button {
     border-radius: 5px; /* Закругленные края кнопки */
     padding: 10px;
     cursor: pointer;
-    width: 20%; /* Убираем фиксированную ширину */
+    width: 50%; /* Убираем фиксированную ширину */
+}
+.uchastie_button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    width: 80%; /* Увеличиваем ширину (например, до 80%) */
+    text-decoration: none; /* Убираем подчеркивание */
+    margin-top: 20px; /* Добавляем вертикальный отступ сверху */
+    margin-bottom: 10px; /* Отступ снизу между кнопками */
+}
+.uchastie_button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
 }
 
 .big-buttons {
@@ -112,13 +127,17 @@ button:hover {
 }
 
 .result-item {
-    display: flex; /* Используем Flexbox для расположения элементов */
-    justify-content: space-between; /* Размещаем элементы по краям */
-    align-items: center; /* Центрируем по вертикали */
+    display: flex; /* Используем Flexbox для расположения элементов в строку */
+    align-items: center; /* Выравниваем элементы по вертикали по центру */
+    margin-bottom: 10px; /* Отступ между строками */
     border: 1px solid #ccc; /* Цвет границы элемента */
     border-radius: 10px; /* Закругленные края */
     padding: 10px; /* Отступы внутри элемента */
-    margin-bottom: 10px; /* Отступ между элементами */
+}
+.result-item span{
+    margin-right:10px;
+    flex-grow: 1; /* Дает возможность элементам заполнять доступное пространство */
+    width: 30%;
 }
 
 .button-container {
@@ -142,8 +161,10 @@ footer {
     display: inline-block; /* Позволяет использовать отступы */
     margin-top: 10px; /* Отступ сверху для кнопки */
     margin-bottom: 10px; /* Отступ сверху для кнопки */
+    margin-outside: 10px;
     transition: background-color 0.3s ease; /* Плавный переход цвета */
     width: 97%;
+
 }
 
 .btn-download:hover {

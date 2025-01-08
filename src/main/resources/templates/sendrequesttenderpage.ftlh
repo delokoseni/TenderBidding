@@ -28,10 +28,9 @@
     <div class="container">
         <h1>Участие в тендере</h1>
         <form action="#" method="post">
-            <label class="tender-title">Название тендера: Строительство больницы в микрорайоне "Черёмушки".</label>
-            <label class="tender-description">Описание: Подходит для крупной строительной фирмы из города Барнаула,<br>
-                Срок выполнения заказа строгий и не может быть изменен. Строительство с гос. участием.</label>
-            <label class="tender-price">Стартовая цена: 479,500,000 рублей.</label>
+            <label class="tender-title">Название тендера: ${tender.nomer}</label>
+            <label class="tender-price">Стартовая цена: ${tender.nachalnaya_tsena} рублей.</label>
+
             <a href="path/to/your/file.pdf" class="btn-download" download>Скачать условия в формате PDF</a>
             <label>Ваша цена<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="startPrice" placeholder="Ваша цена" required>
