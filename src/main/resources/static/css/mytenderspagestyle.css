@@ -13,12 +13,38 @@ body {
     border: 2px solid #007bff; /* Синий цвет границы */
     border-radius: 15px; /* Закругленные края */
     padding: 20px; /* Отступ внутри контейнера */
-    width: 50%; /* Ширина контейнера */
+    width: 85%; /* Ширина контейнера */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box; /* Учитывает отступы и границы */
     margin: 20px auto; /* Центрирует контейнер с отступами сверху и снизу */
 }
+
+th {
+    padding: 10px; /* Общие отступы для всех ячеек */
+    width: 16.6%;
+    border: 1px solid #007bff; /* Граница ячеек таблицы */
+    text-align: center; /* Выравнивание текста по левому краю */
+}
+
+th {
+    background-color: #007bff; /* Цвет фона заголовка */
+    color: white; /* Цвет текста заголовка */
+}
+
+td {
+    padding: 1px; /* Уменьшите значение padding по желанию */
+}
+
+.header-two {
+    background-color: #007bff; /* Цвет фона заголовка */
+    color: white; /* Цвет текста заголовка */
+    padding: 10px 10px; /* Общие отступы для всех ячеек */
+    border: 1px solid #007bff; /* Граница ячеек таблицы */
+    text-align: center; /* Выравнивание текста по левому краю */
+    width: 17%;
+}
+
 
 .header-container {
     display: flex;
@@ -62,30 +88,43 @@ input {
     border: 1px solid #ccc; /* Цвет границы полей ввода */
 }
 
-button {
+
+
+ .button {
     background-color: #007bff; /* Синяя кнопка */
     color: white;
     border: none;
     border-radius: 5px; /* Закругленные края кнопки */
     padding: 10px;
     cursor: pointer;
-    width: 20%; /* Убираем фиксированную ширину */
+    text-align: center; /* Центрируем текст */
+    flex: 1; /* Кнопки занимают одинаковую ширину */
+    font-size: 14px; /* Размер шрифта*/
+    width: 40%;
+    text-decoration: none; /* Убираем подчеркивание */
 }
 
-.big-buttons {
-   background-color: #007bff; /* Синяя кнопка */
-   color: white;
-   border: none;
-   border-radius: 5px; /* Закругленные края кнопки */
-   padding: 10px;
-   cursor: pointer;
-   width: 97%;
-   margin-top: 10px;
+.open_button:hover, .button:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+}
+
+.open_button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    text-align: center; /* Центрируем текст */
+    font-size: 14px; /* Размер шрифта*/
+    width: 50%;
+    text-decoration: none; /* Убираем подчеркивание */
 }
 
 button:hover {
     background-color: #0056b3; /* Темнее при наведении */
 }
+
 
 .add-button, .email-button {
     background-color: #007bff; /* Синяя кнопка */

@@ -71,10 +71,30 @@ button {
    padding: 10px;
    cursor: pointer;
    width: 97%;
+
 }
 
 button:hover {
    background-color: #0056b3; /* Темнее при наведении */
+}
+
+
+.button {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block; /* Чтобы ссылка вела себя как блочный элемент */
+    text-align: center; /* Центрируем текст */
+    text-decoration: none; /* Убираем подчеркивание */
+    width: 85%; /* Ширина ссылки */
+    margin: 0 auto; /* Центрируем по горизонтали */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
 }
 
 .container {
@@ -90,7 +110,8 @@ button:hover {
 }
 
 th {
-    padding: 10px 40px; /* Общие отступы для всех ячеек */
+    padding: 10px; /* Общие отступы для всех ячеек */
+    width: 14.2%;
     border: 1px solid #007bff; /* Граница ячеек таблицы */
     text-align: center; /* Выравнивание текста по левому краю */
 }
