@@ -65,7 +65,7 @@ public class AccountPageController {
             model.addAttribute("ownershipType", "отсутствует");
         }
 
-        model.addAttribute("establishmentDate", organizatsiya.getData_osnovaniya());
+        model.addAttribute("establishmentDate", organizatsiya.getData_osnovaniya() != null ? organizatsiya.getData_osnovaniya() : "");
         model.addAttribute("email", organizatsiya.getEmail());
         List<OwnershipType> ownershipTypes = ownershipTypeRepository.findAll();
         model.addAttribute("ownershipTypes", ownershipTypes);
