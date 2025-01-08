@@ -27,7 +27,12 @@
 <main>
     <div class="container">
         <h1>Создание тендера</h1>
-        <form action="#" method="post">
+        <#if error??>
+            <div class="errorMessage">
+                <p>${error}</p>
+            </div>
+        </#if>
+        <form action="/createZayavka" method="post">
             <label>Название тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="tenderName" placeholder="Название тендера" required>
             <label>Краткое описание<span class="required" title="Поле обязательно для заполнения">*</span></label>
@@ -37,7 +42,7 @@
             <label>Дата окончания тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="date" name="endDate" required>
             <label>Прикрепить файл с условиями (*.pdf)<span class="required" title="Поле обязательно для заполнения">*</span></label>
-            <input type="file" name="fileUpload" required>
+            <input type="file" name="fileUpload">
             <label>Начальная цена<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="startPrice" placeholder="Начальная цена" required>
             <button type="submit">Отправить заявку</button>

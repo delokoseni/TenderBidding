@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/menustyle.css">
     <link rel="stylesheet" href="/css/accountpagestyle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="/js/menuToggle.js" defer></script>
     <script src="/js/accountEdit.js" defer></script>
+    <script src="/js/passwordToggle.js" defer></script>
     <title>Аккаунт</title>
 </head>
 <body>
@@ -48,57 +50,77 @@
         </label>
         <label>
             Форма собственности:
-            <span id="ownershipTypeDisplay">
-        <#if ownershipType?exists && ownershipType?trim != "">
-            ${ownershipType}
-        <#else>
-            отсутствует
-        </#if>
-            </span>
-            <input type="text" id="ownershipTypeInput" value="${ownershipType!}" readonly />
+            <select name="ownershipType" id="ownershipTypeInput" disabled>
+                <option value="" disabled <#if ownershipType == "отсутствует">selected</#if>>Выберите форму собственности</option>
+                <#list ownershipTypes as type>
+                    <option value="${type.id_forma_sobstvennnosti}" <#if type.forma == ownershipType>selected</#if>>${type.forma}</option>
+                </#list>
+            </select>
             <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
-            <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display:none;">Сохранить</button>
+            <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display: none;" class="email-button">Сохранить</button>
         </label>
-        <label>
-            Дата основания:
-            <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
-            <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
-            <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
-        </label>
-        <label>
-            Список ОКВЭД
-            <button type="button" class="email-button">Изменить</button>
-        </label>
-        <div class="results-container">
-            <div class="result-item">
-                <span>Код: 01</span>
-                <span>Расшифровка: Растениеводство и животноводство, охота и предоставление соответствующих услуг в этих областях</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 02</span>
-                <span>Расшифровка: Лесоводство и лесозаготовки</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 03</span>
-                <span>Расшифровка: Рыболовство и рыбоводство</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 04</span>
-                <span>Расшифровка: Добыча угля</span>
-            </div>
-            <div class="result-item">
-                <span>Код: 05</span>
-                <span>Расшифровка: Добыча полезных ископаемых</span>
-            </div>
-        </div>
-        <label>
-            Email:
+    <label>
+        Дата основания:
+        <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
+        <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
+        <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;" class="email-button">Сохранить</button>
+    </label>
+    <label class="label-container">
+        Код и расшифровка ОКВЭД:
+        <select name="okved" class="select2" id="okvedInput" disabled>
+            <option value="" disabled <#if selectedOkvedKod == "отсутствует">selected</#if>>Выберите основной ОКВЭД</option>
+        <#list okvedList as okved>
+        <option value="${okved.kod}" <#if selectedOkvedKod == okved.kod>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
+</#list>
+</select>
+<button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
+<button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;" class="email-button">Сохранить</button>
+</label>
+
+<label>
+        Email:
             <input type="text" name="email" value="${email}" readonly id="emailInput">
             <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>
             <button type="button" class="email-button" id="saveEmailButton" style="display: none;" onclick="saveEmail()">Сохранить</button>
-        </label>
-        <button class="big-buttons" type="submit">Сменить пароль</button>
-        <form action="/logout" method="post" style="display: inline;">
+    </label>
+<!-- Кнопка для смены пароля -->
+<button class="big-buttons" onclick="openChangePasswordModal()">Сменить пароль</button>
+
+<!-- Модальное окно для смены пароля -->
+<div id="changePasswordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+    <div style="background-color:white; margin:auto; padding:20px; width:300px; position:relative; top:50%; transform:translateY(-50%);">
+        <h2>Сменить пароль</h2>
+        <form id="changePasswordForm" onsubmit="return changePassword(event)">
+            <label for="oldPassword">Старый пароль:</label>
+            <div class="password-container">
+                <input type="password" id="oldPassword" required placeholder="Старый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('oldPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-oldPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
+            <label for="newPassword">Новый пароль:</label>
+            <div class="password-container">
+                <input type="password" id="newPassword" required placeholder="Новый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('newPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-newPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
+            <label for="confirmPassword">Повторите новый пароль:</label>
+            <div class="password-container">
+                <input type="password" id="confirmPassword" required placeholder="Повторите новый пароль">
+                <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')" title="Показать/Скрыть пароль">
+        <img id="eye-icon-confirmPassword" src="/icons/EyeSlashed.svg" class="eye-icon" alt="Глаз">
+    </span>
+            </div><br><br>
+
+            <button type="submit">Сменить</button>
+        </form>
+    </div>
+</div>
+
+<form action="/logout" method="post" style="display: inline;">
             <button class="big-buttons" type="submit">Выход</button>
         </form>
     </div>
@@ -107,5 +129,12 @@
     <p>АлтГТУ 2024</p>
     <input type="hidden" id="currentUserEmail" value="${email}">
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 </body>
 </html>

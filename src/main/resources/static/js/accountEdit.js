@@ -1,7 +1,9 @@
 function enableEditing(inputId, editButtonId, saveButtonId) {
     document.getElementById(inputId).removeAttribute("readonly");
+    document.getElementById(inputId).removeAttribute("disabled");
     document.getElementById(editButtonId).style.display = "none"; // Скрыть кнопку "Изменить"
     document.getElementById(saveButtonId).style.display = "inline-block"; // Показать кнопку "Сохранить"
+    document.getElementById(inputId).focus();
 }
 
 function saveOrganizationName() {
@@ -54,7 +56,6 @@ function saveInn() {
     });
 }
 
-
 function saveOgrn() {
     const newOgrn = document.getElementById("ogrnInput").value;
     const currentUserEmail = document.getElementById("currentUserEmail").value;
@@ -73,7 +74,9 @@ function saveOgrn() {
             document.getElementById("saveOgrnButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении ОГРН/ОГРНИП.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении ОГРН/ОГРНИП: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
@@ -87,16 +90,19 @@ function saveOwnershipType() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newOwnershipType: newOwnershipType, email: currentUserEmail })
+        body: JSON.stringify({ newOwnershipType, email: currentUserEmail })
     })
     .then(response => {
         if (response.ok) {
-            document.getElementById("ownershipTypeInput").setAttribute("readonly", "true");
+            const inputElement = document.getElementById("ownershipTypeInput");
+            inputElement.setAttribute("disabled", "true"); // Запретить изменения после сохранения
             document.getElementById("editOwnershipTypeButton").style.display = "inline-block"; // Показать кнопку "Изменить"
             document.getElementById("saveOwnershipTypeButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении формы собственности.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении формы собственности: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
@@ -142,7 +148,90 @@ function saveEmail() {
             document.getElementById("saveEmailButton").style.display = "none"; // Скрыть кнопку "Сохранить"
             window.location.reload(); // Перезагрузить страницу для обновления данных
         } else {
-            alert('Ошибка при сохранении email.'); // Обработка ошибок
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении email: ' + errorMessage); // Обработка ошибок с сообщением
+            });
         }
     });
 }
+
+function saveOkved() {
+    const newOkved = document.getElementById("okvedInput").value;
+    const currentUserEmail = document.getElementById("currentUserEmail").value;
+
+    fetch('/updateOkved', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newOkved, email: currentUserEmail })
+    })
+    .then(response => {
+        if (response.ok) {
+            const inputElement = document.getElementById("okvedInput");
+            inputElement.setAttribute("disabled", "true"); // Запретить изменения после сохранения
+            document.getElementById("editOkvedButton").style.display = "inline-block"; // Показать кнопку "Изменить"
+            document.getElementById("saveOkvedButton").style.display = "none"; // Скрыть кнопку "Сохранить"
+            window.location.reload(); // Перезагрузить страницу для обновления данных
+        } else {
+            return response.text().then(errorMessage => {
+                alert('Ошибка при сохранении ОКВЭД: ' + errorMessage); // Обработка ошибок с сообщением
+            });
+        }
+    });
+}
+
+function openChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'block';
+}
+
+function closeChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'none';
+    document.getElementById('oldPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+
+// Закрытие окна при клике вне его
+window.onclick = function(event) {
+    const modal = document.getElementById('changePasswordModal');
+    if (event.target == modal) {
+        closeChangePasswordModal();
+    }
+}
+
+function changePassword(event) {
+    event.preventDefault(); // Предотвращаем отправку формы
+
+    const oldPassword = document.getElementById('oldPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword !== confirmPassword) {
+        alert('Новый пароль не совпадает с подтверждением!');
+        return;
+    }
+
+    // Здесь добавьте код для отправки старого и нового паролей на сервер
+    fetch('/changePassword', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        })
+    }).then(response => {
+        if (response.ok) {
+            alert('Пароль успешно изменён!');
+            closeChangePasswordModal();
+        } else {
+            response.text().then(errorMessage => {
+                alert('Ошибка: ' + errorMessage);
+            });
+        }
+    });
+}
+

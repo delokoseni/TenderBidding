@@ -55,7 +55,7 @@
             </#list>
         </div>
 
-        <button type="button" class="big-buttons">Создать тендер</button>
+        <button type="button" class="big-buttons" onclick="location.href='/createtender';">Создать тендер</button>
     </div>
 </main>
 <footer>

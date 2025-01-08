@@ -10,4 +10,4 @@ public class TenderBiddingApplication {
 		SpringApplication.run(TenderBiddingApplication.class, args);
 	}
 
-}//комментарий 2
+}

@@ -80,7 +80,7 @@ label {
 }
 
 input {
-   width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+   width: 97%; /* Уменьшите ширину на общий размер границ и отступов */
    padding: 10px;
    margin-top: 5px; /* Отступ сверху для полей ввода */
    margin-bottom: 15px; /* Отступ снизу для полей ввода */
@@ -113,7 +113,7 @@ footer {
     position: relative;
     display: flex;
     align-items: center;
-    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
+    width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
 }
