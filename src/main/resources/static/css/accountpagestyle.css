@@ -174,7 +174,7 @@ button.email-button, button.edit-button {
     box-sizing: border-box; /* Учитывает отступы и границы */
 }
 
-.label-container select, .label-container .edit-button, .label-container .save-button {
+.label-container select{
     flex: 1; /* Растягивает элементы, чтобы лучше использовать пространство */
     min-width: 150px; /* Минимальная ширина для select и кнопок */
     margin-left: 10px; /* Отступы между полями и кнопками */
