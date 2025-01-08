@@ -31,7 +31,9 @@ public class CreateTenderPageController {
     }
 
     @PostMapping("/createZayavka")
-    public String createZayavka(@RequestParam("startDate") LocalDate startDate,
+    public String createZayavka(@RequestParam("tenderName") String tenderName,
+                                @RequestParam("description") String description,
+                                @RequestParam("startDate") LocalDate startDate,
                                 @RequestParam("endDate") LocalDate endDate,
                                 @RequestParam("startPrice") String startPrice,
                                 //@RequestParam("usloviya") String usloviya,
@@ -53,39 +55,24 @@ public class CreateTenderPageController {
         // Сохранение заявки в базе данных
         zayavkaNaProvedenieTenderaRepository.save(zayavka);
 
-        // Перенаправление на страницу создания тендера, передавая id заявки
-        return "redirect:/createtender?idZayavki=" + zayavka.getIdZayavkiNaProvedenieTendera();
-    }
-
-    @PostMapping("/createtender")
-    public String createTender(@RequestParam("tenderName") String tenderName,
-                               @RequestParam("description") String description,
-                               @RequestParam("startDate") String startDate,
-                               @RequestParam("endDate") String endDate,
-                               @RequestParam("startPrice") String startPrice,
-                               @RequestParam("idZayavki") Long idZayavki, // Получение id заявки на проведение
-                               Model model) {
-
         // Создание нового объекта тендера
         Tender tender = new Tender();
 
         // Присвоение значений полям объекта
         tender.setNomer(tenderName);
         tender.setDokument(description);
-        tender.setData_nachala(LocalDate.parse(startDate));
-        tender.setData_okonchaniya(LocalDate.parse(endDate));
+        tender.setData_nachala(startDate);
+        tender.setData_okonchaniya(endDate);
         tender.setNachalnaya_tsena(Double.parseDouble(startPrice));
-        tender.setId_zayavki_na_provedenie_tendera(idZayavki); // Использование id заявки
+        tender.setId_zayavki_na_provedenie_tendera(zayavka.getIdZayavkiNaProvedenieTendera()); // Использование id заявки
 
-        // Получение id_organizatora из сессии
-        Long organizationId = getCurrentUserOrganizationId();
         tender.setId_organizatora(organizationId); // Установка id_organizatora в тендер
 
         // Сохранение тендера в базе данных
         tenderRepository.save(tender);
 
-        // Перенаправление на страницу с подтверждением или список тендеров
-        return "redirect:/myrequests"; // Путь для перенаправления после создания тендера
+        // Перенаправление на страницу создания тендера, передавая id заявки
+        return "redirect:/myrequests";
     }
 
     private Long getCurrentUserOrganizationId() {
