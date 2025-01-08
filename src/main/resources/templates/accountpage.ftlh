@@ -59,24 +59,25 @@
             <button type="button" id="editOwnershipTypeButton" onclick="enableEditing('ownershipTypeInput', 'editOwnershipTypeButton', 'saveOwnershipTypeButton')" class="edit-button">Изменить</button>
             <button type="button" id="saveOwnershipTypeButton" onclick="saveOwnershipType()" style="display: none;">Сохранить</button>
         </label>
-        <label>
-            Дата основания:
-            <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
-            <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
-            <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
-        </label>
     <label>
+        Дата основания:
+        <input type="date" id="establishmentDateInput" value="${establishmentDate!}" readonly />
+        <button type="button" id="editEstablishmentDateButton" onclick="enableEditing('establishmentDateInput', 'editEstablishmentDateButton', 'saveEstablishmentDateButton')" class="edit-button">Изменить</button>
+        <button type="button" id="saveEstablishmentDateButton" onclick="saveEstablishmentDate()" style="display:none;">Сохранить</button>
+    </label>
+    <label class="label-container">
         Код и расшифровка ОКВЭД:
         <select name="okved" class="select2" id="okvedInput" disabled>
             <option value="" disabled <#if selectedOkvedKod == "отсутствует">selected</#if>>Выберите основной ОКВЭД</option>
-            <#list okvedList as okved>
-            <option value="${okved.kod}" <#if selectedOkvedKod == okved.kod>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
-            </#list>
-        </select>
-        <button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
-        <button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;">Сохранить</button>
-    </label>
-    <label>
+        <#list okvedList as okved>
+        <option value="${okved.kod}" <#if selectedOkvedKod == okved.kod>selected</#if>>${okved.kod} - ${okved.rasshifrovka}</option>
+</#list>
+</select>
+<button type="button" id="editOkvedButton" onclick="enableEditing('okvedInput', 'editOkvedButton', 'saveOkvedButton')" class="edit-button">Изменить</button>
+<button type="button" id="saveOkvedButton" onclick="saveOkved()" style="display: none;">Сохранить</button>
+</label>
+
+<label>
         Email:
             <input type="text" name="email" value="${email}" readonly id="emailInput">
             <button type="button" class="email-button" id="editEmailButton" onclick="enableEditing('emailInput', 'editEmailButton', 'saveEmailButton')">Изменить</button>

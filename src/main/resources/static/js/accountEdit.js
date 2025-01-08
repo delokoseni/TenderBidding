@@ -1,7 +1,9 @@
 function enableEditing(inputId, editButtonId, saveButtonId) {
     document.getElementById(inputId).removeAttribute("readonly");
+    document.getElementById(inputId).removeAttribute("disabled");
     document.getElementById(editButtonId).style.display = "none"; // Скрыть кнопку "Изменить"
     document.getElementById(saveButtonId).style.display = "inline-block"; // Показать кнопку "Сохранить"
+    document.getElementById(inputId).focus();
 }
 
 function saveOrganizationName() {
@@ -77,17 +79,6 @@ function saveOgrn() {
             });
         }
     });
-}
-
-function enableEditing(inputId, editButtonId, saveButtonId) {
-    const inputElement = document.getElementById(inputId);
-    const editButton = document.getElementById(editButtonId);
-    const saveButton = document.getElementById(saveButtonId);
-
-    // Включаем выбор формы собственности
-    inputElement.removeAttribute("disabled");
-    editButton.style.display = "none"; // Скрыть кнопку "Изменить"
-    saveButton.style.display = "inline-block"; // Показать кнопку "Сохранить"
 }
 
 function saveOwnershipType() {

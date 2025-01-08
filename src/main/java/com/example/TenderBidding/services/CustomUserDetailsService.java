@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Создаем объект CustomUserDetails с дополнительным полем organizationId
         CustomUserDetails userDetails = new CustomUserDetails(
                 organizatsiya.get().getEmail(),
-                organizatsiya.get().getParol(), // Убедитесь, что это хэшированный пароль
+                organizatsiya.get().getParol(),
                 new ArrayList<>(), // Роли и авторизации
                 organizatsiya.get().getId_organizatsii() // ID организации
         );
