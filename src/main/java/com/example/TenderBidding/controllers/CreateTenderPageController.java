@@ -31,14 +31,23 @@ public class CreateTenderPageController {
     }
 
     @PostMapping("/createZayavka")
-    public String createZayavka(@RequestParam("tenderName") String tenderName,
-                                @RequestParam("description") String description,
-                                @RequestParam("startDate") LocalDate startDate,
-                                @RequestParam("endDate") LocalDate endDate,
-                                @RequestParam("startPrice") String startPrice,
-                                //@RequestParam("usloviya") String usloviya,
+    public String createZayavka(@RequestParam(name = "tenderName", required = false) String tenderName,
+                                @RequestParam(name = "description", required = false) String description,
+                                @RequestParam(name = "startDate", required = false) LocalDate startDate,
+                                @RequestParam(name = "endDate", required = false) LocalDate endDate,
+                                @RequestParam(name = "startPrice", required = false) String startPrice,
                                 Model model) {
         String error = null;
+
+        // Проверка на наличие обязательных полей
+        if (tenderName == null || tenderName.trim().isEmpty() ||
+                description == null || description.trim().isEmpty() ||
+                startDate == null ||
+                endDate == null ||
+                startPrice == null || startPrice.trim().isEmpty()) {
+            model.addAttribute("error", "Пожалуйста, заполните все обязательные поля.");
+            return "createtenderpage"; // Отправить обратно на страницу создания тендера
+        }
 
         // Валидация даты начала и даты окончания
         LocalDate today = LocalDate.now();
@@ -50,7 +59,7 @@ public class CreateTenderPageController {
         }
 
         // Валидация стартовой цены
-        double startPriceValue;
+        double startPriceValue = 0;
         try {
             startPriceValue = Double.parseDouble(startPrice);
             if (startPriceValue < 1) {
@@ -67,37 +76,42 @@ public class CreateTenderPageController {
             model.addAttribute("error", error);
             return "createtenderpage"; // Вернуть на страницу создания тендера с ошибкой
         }
-        // Создание нового объекта заявки на проведение тендера
-        ZayavkaNaProvedenieTendera zayavka = new ZayavkaNaProvedenieTendera();
 
-        // Присвоение значений полям объекта
-        zayavka.setDataNachalaTendera(startDate); // Преобразование строки в LocalDate
-        zayavka.setDataOkonchaniyaTendera(endDate); // Преобразование строки в LocalDate
-        zayavka.setNachalnayaTsena(Double.parseDouble(startPrice));
-        //zayavka.setUsloviya(usloviya);
+        try {
+            // Создание нового объекта заявки на проведение тендера
+            ZayavkaNaProvedenieTendera zayavka = new ZayavkaNaProvedenieTendera();
 
-        // Получение id_organizatsii из сессии
-        Long organizationId = getCurrentUserOrganizationId();
-        zayavka.setIdOrganizatsii(organizationId); // Установка id_organizatsii в заявку
+            // Присвоение значений полям объекта
+            zayavka.setDataNachalaTendera(startDate);
+            zayavka.setDataOkonchaniyaTendera(endDate);
+            zayavka.setNachalnayaTsena(startPriceValue);
 
-        // Сохранение заявки в базе данных
-        zayavkaNaProvedenieTenderaRepository.save(zayavka);
+            // Получение id_organizatsii из сессии
+            Long organizationId = getCurrentUserOrganizationId();
+            zayavka.setIdOrganizatsii(organizationId); // Установка id_organizatsii в заявку
 
-        // Создание нового объекта тендера
-        Tender tender = new Tender();
+            // Сохранение заявки в базе данных
+            zayavkaNaProvedenieTenderaRepository.save(zayavka);
 
-        // Присвоение значений полям объекта
-        tender.setNomer(tenderName);
-        tender.setDokument(description);
-        tender.setData_nachala(startDate);
-        tender.setData_okonchaniya(endDate);
-        tender.setNachalnaya_tsena(Double.parseDouble(startPrice));
-        tender.setId_zayavki_na_provedenie_tendera(zayavka.getIdZayavkiNaProvedenieTendera()); // Использование id заявки
+            // Создание нового объекта тендера
+            Tender tender = new Tender();
 
-        tender.setId_organizatora(organizationId); // Установка id_organizatora в тендер
+            // Присвоение значений полям объекта
+            tender.setNomer(tenderName);
+            tender.setDokument(description);
+            tender.setData_nachala(startDate);
+            tender.setData_okonchaniya(endDate);
+            tender.setNachalnaya_tsena(startPriceValue);
+            tender.setId_zayavki_na_provedenie_tendera(zayavka.getIdZayavkiNaProvedenieTendera());
 
-        // Сохранение тендера в базе данных
-        tenderRepository.save(tender);
+            tender.setId_organizatora(organizationId); // Установка id_organizatora в тендер
+
+            // Сохранение тендера в базе данных
+            tenderRepository.save(tender);
+        } catch (Exception e) {
+            model.addAttribute("error", "Не удалось сохранить данные в базе данных: " + e.getMessage());
+            return "createtenderpage";
+        }
 
         // Перенаправление на страницу создания тендера, передавая id заявки
         return "redirect:/myrequests";
