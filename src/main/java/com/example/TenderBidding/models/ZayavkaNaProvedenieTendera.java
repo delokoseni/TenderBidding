@@ -1,17 +1,18 @@
 package com.example.TenderBidding.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "zayavka_na_provedenie_tendera")
 public class ZayavkaNaProvedenieTendera {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idZayavkiNaProvedenieTendera;
 
-    private String dataNachalaTendera;
-    private String dataOkonchaniyaTendera;
+    private LocalDate dataNachalaTendera;
+    private LocalDate dataOkonchaniyaTendera;
     private String usloviya;  // Это поле типа JSON, можно преобразовать в строку
     private Double nachalnayaTsena;
     private Long idOrganizatsii;  // Ссылка на организацию
@@ -25,19 +26,19 @@ public class ZayavkaNaProvedenieTendera {
         this.idZayavkiNaProvedenieTendera = idZayavkiNaProvedenieTendera;
     }
 
-    public String getDataNachalaTendera() {
+    public LocalDate getDataNachalaTendera() {
         return dataNachalaTendera;
     }
 
-    public void setDataNachalaTendera(String dataNachalaTendera) {
+    public void setDataNachalaTendera(LocalDate dataNachalaTendera) {
         this.dataNachalaTendera = dataNachalaTendera;
     }
 
-    public String getDataOkonchaniyaTendera() {
+    public LocalDate getDataOkonchaniyaTendera() {
         return dataOkonchaniyaTendera;
     }
 
-    public void setDataOkonchaniyaTendera(String dataOkonchaniyaTendera) {
+    public void setDataOkonchaniyaTendera(LocalDate dataOkonchaniyaTendera) {
         this.dataOkonchaniyaTendera = dataOkonchaniyaTendera;
     }
 
