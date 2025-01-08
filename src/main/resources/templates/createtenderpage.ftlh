@@ -35,8 +35,8 @@
         <form action="/createZayavka" method="post">
             <label>Название тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="tenderName" placeholder="Название тендера" required>
-            <label>Краткое описание<span class="required" title="Поле обязательно для заполнения">*</span></label>
-            <textarea class="description" name="description" placeholder="Краткое описание" rows="4" required></textarea>
+<#--            <label>Краткое описание<span class="required" title="Поле обязательно для заполнения">*</span></label>-->
+<#--            <textarea class="description" name="description" placeholder="Краткое описание" rows="4" required></textarea>-->
             <label>Дата начала тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="date" name="startDate" required>
             <label>Дата окончания тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>

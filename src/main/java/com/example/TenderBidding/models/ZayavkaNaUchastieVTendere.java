@@ -1,14 +1,14 @@
 package com.example.TenderBidding.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "zayavka_na_uchastie_v_tendere")
 public class ZayavkaNaUchastieVTendere {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Или другой подходящий метод
     @Column(name = "id_zayavki_na_uchastie_v_tendere")
     private Long idZayavkiNaUchastieVTendere;
 
@@ -22,7 +22,7 @@ public class ZayavkaNaUchastieVTendere {
     private Long idTendera;
 
     @Column(name = "data_podachi")
-    private String dataPodachi;
+    private LocalDate dataPodachi;
 
     @Column(name = "dokumenty")
     private String dokumenty;  // JSON данные
@@ -31,7 +31,7 @@ public class ZayavkaNaUchastieVTendere {
     private Long idStatusZayavki;
 
     @Column(name = "data_izmeneniya_statusa")
-    private String dataIzmeneniyaStatusa;
+    private LocalDate dataIzmeneniyaStatusa;
 
     // Getters and Setters
     public Long getIdZayavkiNaUchastieVTendere() {
@@ -66,11 +66,11 @@ public class ZayavkaNaUchastieVTendere {
         this.idTendera = idTendera;
     }
 
-    public String getDataPodachi() {
+    public LocalDate getDataPodachi() {
         return dataPodachi;
     }
 
-    public void setDataPodachi(String dataPodachi) {
+    public void setDataPodachi(LocalDate dataPodachi) {
         this.dataPodachi = dataPodachi;
     }
 
@@ -90,11 +90,11 @@ public class ZayavkaNaUchastieVTendere {
         this.idStatusZayavki = idStatusZayavki;
     }
 
-    public String getDataIzmeneniyaStatusa() {
+    public LocalDate getDataIzmeneniyaStatusa() {
         return dataIzmeneniyaStatusa;
     }
 
-    public void setDataIzmeneniyaStatusa(String dataIzmeneniyaStatusa) {
+    public void setDataIzmeneniyaStatusa(LocalDate dataIzmeneniyaStatusa) {
         this.dataIzmeneniyaStatusa = dataIzmeneniyaStatusa;
     }
 }

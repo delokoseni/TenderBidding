@@ -36,7 +36,7 @@
             <div>
                 <label>Заявки на участие</label>
                 <#if zayavki?size == 0>
-                <label> style="text-align:center;">Нет заявок на участие</label>
+                <label style="text-align:center;">Нет заявок на участие</label>
                 <#else>
                 <#list zayavki as zayavka>
                 <div class="results-container">
