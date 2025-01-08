@@ -77,6 +77,7 @@
             </#if>
             </tbody>
         </table>
+        <button type="button" class="big-buttons" onclick="location.href='/createtender';">Создать тендер</button>
     </div>
 </main>
 <footer>

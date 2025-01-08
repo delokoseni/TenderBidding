@@ -32,7 +32,7 @@ public class CreateTenderPageController {
 
     @PostMapping("/createZayavka")
     public String createZayavka(@RequestParam(name = "tenderName", required = false) String tenderName,
-                                @RequestParam(name = "description", required = false) String description,
+//                                @RequestParam(name = "description", required = false) String description,
                                 @RequestParam(name = "startDate", required = false) LocalDate startDate,
                                 @RequestParam(name = "endDate", required = false) LocalDate endDate,
                                 @RequestParam(name = "startPrice", required = false) String startPrice,
@@ -41,7 +41,7 @@ public class CreateTenderPageController {
 
         // Проверка на наличие обязательных полей
         if (tenderName == null || tenderName.trim().isEmpty() ||
-                description == null || description.trim().isEmpty() ||
+//                description == null || description.trim().isEmpty() ||
                 startDate == null ||
                 endDate == null ||
                 startPrice == null || startPrice.trim().isEmpty()) {
@@ -98,7 +98,7 @@ public class CreateTenderPageController {
 
             // Присвоение значений полям объекта
             tender.setNomer(tenderName);
-            tender.setDokument(description);
+//            tender.setDokument(description);
             tender.setData_nachala(startDate);
             tender.setData_okonchaniya(endDate);
             tender.setNachalnaya_tsena(startPriceValue);

@@ -88,7 +88,16 @@ input {
     border: 1px solid #ccc; /* Цвет границы полей ввода */
 }
 
-
+.big-buttons {
+    background-color: #007bff; /* Синяя кнопка */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные края кнопки */
+    padding: 10px;
+    cursor: pointer;
+    width: 97%;
+    margin-top: 10px;
+}
 
  .button {
     background-color: #007bff; /* Синяя кнопка */

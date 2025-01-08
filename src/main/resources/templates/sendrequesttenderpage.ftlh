@@ -27,7 +27,13 @@
 <main>
     <div class="container">
         <h1>Участие в тендере</h1>
-        <form action="#" method="post">
+        <#if message??>
+            <div class="message">
+                <p>${message}</p>
+            </div>
+        </#if>
+        <form action="/sendrequesttender" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="idTendera" value="${tenderId}">
             <label class="tender-title">Название тендера: ${tender.nomer}</label>
             <label class="tender-price">Стартовая цена: ${tender.nachalnaya_tsena} рублей.</label>
 
