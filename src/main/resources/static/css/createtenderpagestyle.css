@@ -105,3 +105,7 @@ footer {
     color: red; /* Красный цвет для символа * */
     margin-left: 5px; /* Отступ слева для символа поля */
 }
+
+.errorMessage p {
+    color: red;
+}

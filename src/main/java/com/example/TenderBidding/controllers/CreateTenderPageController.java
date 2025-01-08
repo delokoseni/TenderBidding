@@ -38,7 +38,35 @@ public class CreateTenderPageController {
                                 @RequestParam("startPrice") String startPrice,
                                 //@RequestParam("usloviya") String usloviya,
                                 Model model) {
+        String error = null;
 
+        // Валидация даты начала и даты окончания
+        LocalDate today = LocalDate.now();
+
+        if (!startDate.isAfter(today) && startDate != today) {
+            error = "Дата начала должна быть сегодняшней или в будущем.";
+        } else if (!endDate.isAfter(startDate)) {
+            error = "Дата окончания должна быть позже даты начала.";
+        }
+
+        // Валидация стартовой цены
+        double startPriceValue;
+        try {
+            startPriceValue = Double.parseDouble(startPrice);
+            if (startPriceValue < 1) {
+                error = "Начальная цена должна быть не меньше 1.";
+            } else if (startPriceValue != Math.floor(startPriceValue)) {
+                error = "Начальная цена должна быть целым числом.";
+            }
+        } catch (NumberFormatException e) {
+            error = "Начальная цена должна быть корректным числом.";
+        }
+
+        // Если есть ошибка, добавляем ее в модель и перенаправляем на страницу
+        if (error != null) {
+            model.addAttribute("error", error);
+            return "createtenderpage"; // Вернуть на страницу создания тендера с ошибкой
+        }
         // Создание нового объекта заявки на проведение тендера
         ZayavkaNaProvedenieTendera zayavka = new ZayavkaNaProvedenieTendera();
 

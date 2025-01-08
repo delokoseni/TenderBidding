@@ -27,6 +27,11 @@
 <main>
     <div class="container">
         <h1>Создание тендера</h1>
+        <#if error??>
+            <div class="errorMessage">
+                <p>${error}</p>
+            </div>
+        </#if>
         <form action="/createZayavka" method="post">
             <label>Название тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="tenderName" placeholder="Название тендера" required>
