@@ -1,13 +1,13 @@
 package com.example.TenderBidding.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "zayavka_na_uchastie_v_tendere")
 public class ZayavkaNaUchastieVTendere {
+
     @Id
     @Column(name = "id_zayavki_na_uchastie_v_tendere")
     private Long idZayavkiNaUchastieVTendere;
@@ -22,18 +22,30 @@ public class ZayavkaNaUchastieVTendere {
     private Long idTendera;
 
     @Column(name = "data_podachi")
-    private String dataPodachi;
+    private LocalDateTime dataPodachi;  // Используем LocalDateTime
 
-    @Column(name = "dokumenty")
-    private String dokumenty;  // JSON данные
+    @Column(name = "dokument")
+    private byte[] usloviyaPdf;
 
     @Column(name = "id_status_zayavki")
     private Long idStatusZayavki;
 
-    @Column(name = "data_izmeneniya_statusa")
-    private String dataIzmeneniyaStatusa;
+    @ManyToOne
+    @JoinColumn(name = "id_status_zayavki", referencedColumnName = "id_status_zayavki", insertable = false, updatable = false)
+    private StatusZayavki statusZayavki;
 
-    // Getters and Setters
+    @Column(name = "data_izmeneniya_statusa")
+    private LocalDate dataIzmeneniyaStatusa;
+
+    // Getters и Setters
+    public StatusZayavki getStatusZayavki() {
+        return statusZayavki;
+    }
+
+    public void setStatusZayavki(StatusZayavki statusZayavki) {
+        this.statusZayavki = statusZayavki;
+    }
+
     public Long getIdZayavkiNaUchastieVTendere() {
         return idZayavkiNaUchastieVTendere;
     }
@@ -66,20 +78,19 @@ public class ZayavkaNaUchastieVTendere {
         this.idTendera = idTendera;
     }
 
-    public String getDataPodachi() {
+    public LocalDateTime getDataPodachi() {
         return dataPodachi;
     }
 
-    public void setDataPodachi(String dataPodachi) {
+    public void setDataPodachi(LocalDateTime dataPodachi) {
         this.dataPodachi = dataPodachi;
     }
-
-    public String getDokumenty() {
-        return dokumenty;
+    public byte[] getUsloviyaPdf() {
+        return usloviyaPdf;
     }
 
-    public void setDokumenty(String dokumenty) {
-        this.dokumenty = dokumenty;
+    public void setUsloviyaPdf(byte[] usloviyaPdf) {
+        this.usloviyaPdf = usloviyaPdf;
     }
 
     public Long getIdStatusZayavki() {
@@ -90,11 +101,12 @@ public class ZayavkaNaUchastieVTendere {
         this.idStatusZayavki = idStatusZayavki;
     }
 
-    public String getDataIzmeneniyaStatusa() {
+    public LocalDate getDataIzmeneniyaStatusa() {
         return dataIzmeneniyaStatusa;
     }
 
     public void setDataIzmeneniyaStatusa(String dataIzmeneniyaStatusa) {
-        this.dataIzmeneniyaStatusa = dataIzmeneniyaStatusa;
+        // Преобразуем строку в LocalDate
+        this.dataIzmeneniyaStatusa = LocalDate.parse(dataIzmeneniyaStatusa);
     }
 }

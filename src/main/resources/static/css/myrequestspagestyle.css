@@ -13,7 +13,7 @@ body {
     border: 2px solid #007bff; /* Синий цвет границы */
     border-radius: 15px; /* Закругленные края */
     padding: 20px; /* Отступ внутри контейнера */
-    width: 50%; /* Ширина контейнера */
+    width: 70%; /* Ширина контейнера */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box; /* Учитывает отступы и границы */
@@ -112,13 +112,19 @@ button:hover {
 }
 
 .result-item {
-    display: flex; /* Используем Flexbox для расположения элементов */
-    justify-content: space-between; /* Размещаем элементы по краям */
-    align-items: center; /* Центрируем по вертикали */
-    border: 1px solid #ccc; /* Цвет границы элемента */
-    border-radius: 10px; /* Закругленные края */
-    padding: 10px; /* Отступы внутри элемента */
-    margin-bottom: 10px; /* Отступ между элементами */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    gap: 10px; /* Добавьте промежутки между текстом и кнопкой */
+}
+
+.result-item span {
+    flex: 1; /* Устанавливает равное пространство для текста */
+    margin-right: 10px; /* Отступ справа от текста */
 }
 
 .button-container {
@@ -131,4 +137,63 @@ footer {
    padding: 10px 20px;
    background-color: #007bff; /* Синий цвет для подвала */
    color: white; /* Белый цвет текста в подвале */
+}
+
+.email-button {
+    background-color: #ff4d4d; /* Красный фон для более заметного вида */
+    color: white; /* Белый цвет текста */
+    font-size: 16px; /* Увеличенный размер шрифта */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 8px; /* Больше скругляем углы */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавные анимации */
+    text-align: center; /* Центровка текста */
+    width: auto;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.email-button:hover {
+    background-color: #cc0000; /* Более тёмный красный при наведении */
+    transform: scale(1.05); /* Небольшое увеличение при наведении */
+}
+
+.email-button:active {
+    background-color: #990000; /* Самый тёмный красный при нажатии */
+    transform: scale(1); /* Убираем увеличение при клике */
+}
+
+.open-button {
+    background-color: #007bff; /* Синий цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.open-button:hover {
+    background-color: #0056b3; /* Более тёмный синий при наведении */
+}
+
+.revoke-button {
+    background-color: #ff4d4d; /* Красный цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    min-width: 100px;
+    transition: background-color 0.3s ease;
+}
+
+.revoke-button:hover {
+    background-color: #cc0000; /* Более тёмный красный при наведении */
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/menustyle.css">
     <link rel="stylesheet" href="/css/requestpagestyle.css">
     <script src="/js/menuToggle.js" defer></script>
-    <title>Заявка</title>
+    <title>Заявка на участие в тендере</title>
 </head>
 <body>
 <header>
@@ -26,16 +26,28 @@
 </header>
 <main>
     <div class="container">
-        <h1>Заявка</h1>
-        <label class="tender-title">Название тендера: Строительство больницы в микрорайоне "Черёмушки".</label>
-        <label class="tender-price">Стартовая цена: 479,500,000 рублей</label>
-        <a href="path/to/your/file.pdf" class="btn-download" download>Скачать условия тендера в формате PDF</a>
-        <label>ID заявки: 1</label>
-        <label>Наименование организации: БельшКорп</label>
-        <label>ИНН: 1234567894</label>
-        <label>ОГРН/ОГРНИП: 756890123456789</label>
-        <label>Цена участника: 450,000,000 рублей</label>
-        <a href="path/to/your/file.pdf" class="btn-download" download>Скачать документы участника в формате PDF</a>
+        <h1>Заявка на участие в тендере</h1>
+        <label class="tender-title">Название тендера:
+            <span>${zayavka.idTendera!"не указано"}</span>
+        </label>
+        <label class="tender-price">Цена участника:
+            <span>${zayavka.tsenaUchastnika!"не указано"}</span>
+        </label>
+        <label>ID заявки:
+            <span>${zayavka.idZayavkiNaUchastieVTendere!"не указано"}</span>
+        </label>
+        <label>ID организации:
+            <span>${zayavka.idOrganizatsiya!"не указано"}</span>
+        </label>
+        <label>Дата подачи:
+            <span>${zayavka.dataPodachi!"не указано"}</span>
+        </label>
+        <label>Дата изменения статуса:
+            <span>${zayavka.dataIzmeneniyaStatusa!"не указано"}</span>
+        </label>
+        <label>Документы:
+            <span>${zayavka.dokumenty!"отсутствуют"}</span>
+        </label>
     </div>
 </main>
 <footer>
