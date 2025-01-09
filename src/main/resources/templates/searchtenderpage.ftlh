@@ -66,6 +66,9 @@
                         <#if tender.id_statusa_tendera == 4>
                             <td>${status4}</td>
                         </#if>
+                        <#if tender.id_statusa_tendera == 5>
+                            <td>${status5}</td>
+                        </#if>
                         <td>${tender.data_nachala}</td>
                         <td>${tender.data_okonchaniya}</td>
                         <td>${tender.nachalnaya_tsena}</td>
@@ -83,7 +86,7 @@
                             </#if>
                         </td>
                         <td>
-                            <button class="button">Участвовать</button>
+                            <a href="/tender?id=${tender.id_tendera}" class="button">Подробнее</a>
                         </td>
                     </tr>
                 </#list>

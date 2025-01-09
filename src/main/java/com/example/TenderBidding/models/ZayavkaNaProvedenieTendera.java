@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "zayavka_na_provedenie_tendera")
 public class ZayavkaNaProvedenieTendera {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idZayavkiNaProvedenieTendera;
 
     private LocalDate dataNachalaTendera;

@@ -27,18 +27,57 @@
 <main>
     <div class="container">
         <h1>Мои тендеры</h1>
-        <div class="results-container">
-            <div class="result-item">
-                <span>Статус: Прием заявок</span>
-                <span>Название: Тендер на строительство моста</span>
-                <button type="button" class="email-button">Открыть</button>
-            </div>
-            <div class="result-item">
-                <span>Статус: Стадия аукциона</span>
-                <span>Название: Тендер на строительство школы</span>
-                <button type="button" class="email-button">Открыть</button>
-            </div>
-        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Статус</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Стартовая цена</th>
+                <th class="header-two">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#if tenders?size == 0>
+                <tr>
+                    <td colspan="7" style="text-align:center;">Нет доступных тендеров</td>
+                </tr>
+            <#else>
+                <#list tenders as tender>
+                    <tr>
+                        <td>${tender.nomer}</td>
+                        <#if tender.id_statusa_tendera == 1>
+                            <td>${status1}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 2>
+                            <td>${status2}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 3>
+                            <td>${status3}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 4>
+                            <td>${status4}</td>
+                        </#if>
+                        <#if tender.id_statusa_tendera == 5>
+                            <td>${status5}</td>
+                        </#if>
+                        <td>${tender.data_nachala}</td>
+                        <td>${tender.data_okonchaniya}</td>
+                        <td>${tender.nachalnaya_tsena}</td>
+                        <td>
+                            <a href="/tender?id=${tender.id_tendera}" class="open_button">Открыть</a>
+                            <form action="/UpdateIdTender" method="post" style="display: inline;">
+                                <input type="hidden" name="tenderId" value="${tender.id_tendera}">
+                                <button type="submit" class="button">Отозвать</button>
+                            </form>
+                        </td>
+                    </tr>
+                </#list>
+            </#if>
+            </tbody>
+        </table>
+        <button type="button" class="big-buttons" onclick="location.href='/createtender';">Создать тендер</button>
     </div>
 </main>
 <footer>

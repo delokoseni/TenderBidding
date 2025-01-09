@@ -26,7 +26,7 @@
         </#if>
     <form action="/login" method="post">
             <label>Email</label>
-            <input type="text" name="username" placeholder="Email" required>
+            <input type="text" name="username" placeholder="Email" style="width: 94%;" required>
 
             <label>Пароль</label>
             <div class="password-container">

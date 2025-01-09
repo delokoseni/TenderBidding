@@ -46,32 +46,6 @@ main {
     padding-bottom: 20px; /* Отступ снизу для главного содержимого */
 }
 
-label {
-    display: flex; /* Используем Flexbox для кнопок и текста */
-    justify-content: space-between; /* Размещаем текст и кнопку по краям */
-    align-items: center; /* Центрируем по вертикали */
-    margin-bottom: 15px; /* Отступ между элементами */
-}
-
-input {
-    width: calc(100% - 22px); /* Уменьшите ширину на общий размер границ и отступов */
-    padding: 10px;
-    margin-top: 5px; /* Отступ сверху для полей ввода */
-    margin-bottom: 15px; /* Отступ снизу для полей ввода */
-    border-radius: 5px; /* Закругленные края для полей ввода */
-    border: 1px solid #ccc; /* Цвет границы полей ввода */
-}
-
-button {
-    background-color: #007bff; /* Синяя кнопка */
-    color: white;
-    border: none;
-    border-radius: 5px; /* Закругленные края кнопки */
-    padding: 10px;
-    cursor: pointer;
-    width: 20%; /* Убираем фиксированную ширину */
-}
-
 .big-buttons {
    background-color: #007bff; /* Синяя кнопка */
    color: white;
@@ -136,3 +110,74 @@ input[readonly] {
     background-color: #e9ecef; /* Светло-серый фон для неактивного поля */
     cursor: not-allowed; /* Курсор для неактивного состояния */
 }
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1; /* Поле ввода занимает все доступное пространство */
+    padding-right: 40px; /* Увеличиваем отступ справа для совпадения с иконкой */
+}
+
+.password-container .eye-icon {
+    width: 20px; /* Ширина иконки */
+    height: 20px; /* Высота иконки */
+    cursor: pointer; /* Указатель при наведении */
+    margin-left: 5px; /* Отступ между полем и иконкой */
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Центрировать элементы по вертикали */
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+input, select {
+    flex: 1; /* Поля ввода растягиваются, занимая доступное пространство */
+    height: 40px; /* Установка одинаковой высоты */
+    padding: 10px;
+    margin: 0; /* Убираем все отступы */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Учитывать отступы и границы */
+    margin-left: 10px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100px; /* Фиксированная ширина для кнопок */
+    height: 40px; /* Фиксированная высота для всех кнопок */
+    margin-left: 10px; /* Отступ между полем ввода и кнопкой */
+}
+
+button.email-button, button.edit-button {
+    width: 100px; /* Убедитесь, что кнопки имеют одинаковую ширину */
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Позволяет элементам обтекать друг друга */
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 10px; /* Отступ слева для выравнивания */
+    box-sizing: border-box; /* Учитывает отступы и границы */
+}
+
+.label-container select{
+    flex: 1; /* Растягивает элементы, чтобы лучше использовать пространство */
+    min-width: 150px; /* Минимальная ширина для select и кнопок */
+    margin-left: 10px; /* Отступы между полями и кнопками */
+}
+
+

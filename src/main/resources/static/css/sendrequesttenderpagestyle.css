@@ -118,3 +118,11 @@ footer {
     font-weight: bold; /* Жирный шрифт для цены */
     margin-top: 10px; /* Отступ сверху для цены */
 }
+.message {
+    color: #007bff;
+    margin-left: 5px; /* Отступ слева для символа поля */
+    font-size: 22pt; /* Увеличенный размер шрифта */
+font-weight: bold; /* Жирный шрифт для цены */
+
+}
+

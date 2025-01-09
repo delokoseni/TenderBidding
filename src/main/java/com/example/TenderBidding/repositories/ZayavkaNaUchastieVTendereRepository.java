@@ -17,4 +17,7 @@ public interface ZayavkaNaUchastieVTendereRepository extends JpaRepository<Zayav
     // Использование запроса для поиска по id Организации и id Тендера
     @Query("SELECT z FROM ZayavkaNaUchastieVTendere z WHERE z.idOrganizatsiya = ?1 AND z.idTendera = ?2")
     Optional<ZayavkaNaUchastieVTendere> findByOrganizatsiyaAndTendera(Long idOrganizatsiya, Long idTendera);
+
+    @Query("SELECT z FROM ZayavkaNaUchastieVTendere z WHERE z.idTendera = ?1")
+    List<ZayavkaNaUchastieVTendere> findByIdTendera(Long idTendera);
 }

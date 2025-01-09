@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class ZayavkaNaUchastieVTendere {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Или другой подходящий метод
     @Column(name = "id_zayavki_na_uchastie_v_tendere")
     private Long idZayavkiNaUchastieVTendere;
 
@@ -105,8 +106,7 @@ public class ZayavkaNaUchastieVTendere {
         return dataIzmeneniyaStatusa;
     }
 
-    public void setDataIzmeneniyaStatusa(String dataIzmeneniyaStatusa) {
-        // Преобразуем строку в LocalDate
-        this.dataIzmeneniyaStatusa = LocalDate.parse(dataIzmeneniyaStatusa);
+    public void setDataIzmeneniyaStatusa(LocalDate dataIzmeneniyaStatusa) {
+        this.dataIzmeneniyaStatusa = dataIzmeneniyaStatusa;
     }
 }

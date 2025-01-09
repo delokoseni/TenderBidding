@@ -27,22 +27,39 @@
 <main>
     <div class="container">
         <h1>Тендер</h1>
-        <label class="tender-title">Название тендера: Строительство больницы в микрорайоне "Черёмушки".</label>
-        <label class="tender-price">Стартовая цена: 479,500,000 рублей</label>
+        <label class="tender-title">Название тендера:${tender.nomer}.</label>
+        <label class="tender-price">Стартовая цена: ${tender.nachalnaya_tsena} рублей</label>
+        <label class="tender-price">Дата начала: ${startDate}</label>
+        <label class="tender-price">Дата окончания: ${endDate}</label>
         <a href="path/to/your/file.pdf" class="btn-download" download>Скачать условия тендера в формате PDF</a>
-        <label>Заявки на участие</label>
-        <div class="results-container">
-            <div class="result-item">
-                <span>Статус: на рассмотрении</span>
-                <span>Цена участница: 400,000,000 рублей</span>
-                <button type="button" class="email-button">Открыть</button>
-            </div>
-            <div class="result-item">
-                <span>Статус: принята</span>
-                <span>Цена участника: 350,000,000 рублей</span>
-                <button type="button" class="email-button">Открыть</button>
-            </div>
+        <#if tender.id_organizatora == userId>
+            <div>
+                <label>Заявки на участие</label>
+                <#if zayavki?size == 0>
+                <label style="text-align:center;">Нет заявок на участие</label>
+                <#else>
+                <#list zayavki as zayavka>
+                <div class="results-container">
+                <div class="result-item">
+                    <#if zayavka.idStatusZayavki == 1>
+                        <span>Статус: ${status1}</span>
+                    </#if>
+                    <#if  zayavka.idStatusZayavki == 2>
+                        <span>Статус:  ${status2}</span>
+                    </#if>
+                    <#if  zayavka.idStatusZayavki == 3>
+                        <span>Статус:  ${status3}</span>
+                    </#if>
+                    <span>Цена участника: ${zayavka.tsenaUchastnika} рублей</span>
+                    <button type="button" class="email-button">Открыть</button>
+                </div>
         </div>
+            </#list>
+        </div>
+        </#if>
+        <#else>
+            <a href="/sendrequesttender?id=${tenderId}" class="btn-download" >Участвовать</a>
+        </#if>
     </div>
 </main>
 <footer>
