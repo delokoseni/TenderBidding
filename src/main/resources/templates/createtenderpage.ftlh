@@ -32,8 +32,8 @@
                 <p>${error}</p>
             </div>
         </#if>
-        <form action="/createZayavka" method="post">
-            <label>Название тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
+        <form action="/createZayavka" method="post" enctype="multipart/form-data">
+        <label>Название тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="tenderName" placeholder="Название тендера" required>
 <#--            <label>Краткое описание<span class="required" title="Поле обязательно для заполнения">*</span></label>-->
 <#--            <textarea class="description" name="description" placeholder="Краткое описание" rows="4" required></textarea>-->
@@ -42,7 +42,7 @@
             <label>Дата окончания тендера<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="date" name="endDate" required>
             <label>Прикрепить файл с условиями (*.pdf)<span class="required" title="Поле обязательно для заполнения">*</span></label>
-            <input type="file" name="fileUpload">
+            <input type="file" name="fileUpload" id="fileUpload" accept="application/pdf">
             <label>Начальная цена<span class="required" title="Поле обязательно для заполнения">*</span></label>
             <input type="text" name="startPrice" placeholder="Начальная цена" required>
             <button type="submit">Отправить заявку</button>

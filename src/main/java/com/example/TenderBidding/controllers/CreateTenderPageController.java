@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -36,6 +37,7 @@ public class CreateTenderPageController {
                                 @RequestParam(name = "startDate", required = false) LocalDate startDate,
                                 @RequestParam(name = "endDate", required = false) LocalDate endDate,
                                 @RequestParam(name = "startPrice", required = false) String startPrice,
+                                @RequestParam(name = "fileUpload", required = false) MultipartFile fileUpload,
                                 Model model) {
         String error = null;
 
@@ -79,7 +81,10 @@ public class CreateTenderPageController {
 
         try {
             // Создание нового объекта заявки на проведение тендера
+
             ZayavkaNaProvedenieTendera zayavka = new ZayavkaNaProvedenieTendera();
+            byte[] fileBytes = fileUpload.getBytes();
+            zayavka.setUsloviyaPdf(fileBytes);
 
             // Присвоение значений полям объекта
             zayavka.setDataNachalaTendera(startDate);
@@ -95,7 +100,8 @@ public class CreateTenderPageController {
 
             // Создание нового объекта тендера
             Tender tender = new Tender();
-
+            //fileBytes = fileUpload.getBytes();
+            tender.setDokument(fileBytes);
             // Присвоение значений полям объекта
             tender.setNomer(tenderName);
 //            tender.setDokument(description);

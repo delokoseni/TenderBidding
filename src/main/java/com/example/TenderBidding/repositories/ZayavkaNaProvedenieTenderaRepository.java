@@ -7,3 +7,4 @@ import java.util.List;
 public interface ZayavkaNaProvedenieTenderaRepository extends JpaRepository<ZayavkaNaProvedenieTendera, Long> {
     List<ZayavkaNaProvedenieTendera> findByIdOrganizatsii(Long idOrganizatsii);
 }
+

@@ -33,11 +33,18 @@
         <div class="results-container">
             <#list zayavkiNaUchastie as zayavka>
                 <div class="result-item">
-                    <span>Цена участника: ${zayavka.tsenaUchastnika} рублей</span>
-                    <span>Дата подачи: ${zayavka.dataPodachi}</span>
-                    <span>Статус: ${zayavka.idStatusZayavki}</span>
-                    <button type="button" class="email-button">Открыть</button>
-                    <button type="button" class="email-button">Отозвать</button>
+                    <span>Цена участника: ${zayavka.tsenaUchastnika?if_exists!"Не указана"} рублей</span>
+                    <span>Дата подачи: ${zayavka.dataPodachi?if_exists!"Не указана"}</span>
+                    <span>Статус: ${zayavka.statusZayavki.status_zayavki?if_exists!"Не указан"}</span>
+                    <#if zayavka.idZayavkiNaUchastieVTendere??>
+                        <a href="/request/${zayavka.idZayavkiNaUchastieVTendere}" class="open-button">Открыть</a>
+                    <#else>
+                        <span class="error">ID заявки отсутствует</span>
+                    </#if>
+                    <!-- Форма для отзыва заявки -->
+                    <form action="/revokeRequest/${zayavka.idZayavkiNaUchastieVTendere}" method="post">
+                        <button type="submit" class="revoke-button" data-id="${zayavka.idZayavkiNaUchastieVTendere}">Отозвать</button>
+                    </form>
                 </div>
             </#list>
         </div>
@@ -47,13 +54,31 @@
         <div class="results-container">
             <#list zayavkiNaProvedenie as zayavka>
                 <div class="result-item">
-                    <span>Статус: ${zayavka.dataNachalaTendera} - ${zayavka.dataOkonchaniyaTendera}</span>
-                    <span>Цена: ${zayavka.nachalnayaTsena} рублей</span>
-                    <button type="button" class="email-button">Открыть</button>
-                    <button type="button" class="email-button">Отозвать</button>
+                    <span>ID заявки: ${zayavka.idZayavkiNaProvedenieTendera?if_exists!"Не указан"}</span>
+                    <span>Период: ${zayavka.dataNachalaTendera?if_exists!"Не указана"} - ${zayavka.dataOkonchaniyaTendera?if_exists!"Не указана"}</span>
+                    <span>Цена: ${zayavka.nachalnayaTsena?if_exists!"Не указана"} рублей</span>
+                    <span>Статус: ${zayavka.statusZayavki.status_zayavki?if_exists!"Не указан"}</span>
+                    <#if zayavka.idZayavkiNaProvedenieTendera??>
+                        <!-- Ссылка на страницу заявки -->
+                        <a href="/requestTender/${zayavka.idZayavkiNaProvedenieTendera}" class="open-button">Открыть</a>
+                    <#else>
+                        <span class="error">ID заявки отсутствует</span>
+                    </#if>
+                    <!-- Кнопка отзыва заявки -->
+                    <form action="/revokeTenderRequest/${zayavka.idZayavkiNaProvedenieTendera}" method="post">
+                        <button type="submit" class="revoke-button" data-id="${zayavka.idZayavkiNaProvedenieTendera}">Отозвать</button>
+                    </form>
                 </div>
             </#list>
         </div>
+
+        <!-- Отображение ID заявки после отзыва -->
+        <#if zayavkaIdNaUchastie??>
+            <p>Заявка на участие ID: ${zayavkaIdNaUchastie}</p>
+        </#if>
+        <#if zayavkaIdNaProvedenie??>
+            <p>Заявка на проведение тендера ID: ${zayavkaIdNaProvedenie}</p>
+        </#if>
 
         <button type="button" class="big-buttons" onclick="location.href='/createtender';">Создать тендер</button>
     </div>

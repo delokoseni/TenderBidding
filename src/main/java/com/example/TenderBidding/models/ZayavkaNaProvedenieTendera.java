@@ -1,8 +1,6 @@
 package com.example.TenderBidding.models;
-
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "zayavka_na_provedenie_tendera")
@@ -13,11 +11,28 @@ public class ZayavkaNaProvedenieTendera {
 
     private LocalDate dataNachalaTendera;
     private LocalDate dataOkonchaniyaTendera;
-    private String usloviya;  // Это поле типа JSON, можно преобразовать в строку
     private Double nachalnayaTsena;
     private Long idOrganizatsii;  // Ссылка на организацию
 
-    // Getters and Setters
+    @Column(name = "id_status_zayavki", insertable = false, updatable = false)
+    private Long idStatusZayavki;
+
+    @ManyToOne
+    @JoinColumn(name = "id_status_zayavki", referencedColumnName = "id_status_zayavki")
+    private StatusZayavki statusZayavki;
+
+    @Column(name = "dokument")
+    private byte[] usloviyaPdf;
+
+    // Getters и Setters
+    public StatusZayavki getStatusZayavki() {
+        return statusZayavki;
+    }
+
+    public void setStatusZayavki(StatusZayavki statusZayavki) {
+        this.statusZayavki = statusZayavki;
+    }
+
     public Long getIdZayavkiNaProvedenieTendera() {
         return idZayavkiNaProvedenieTendera;
     }
@@ -42,13 +57,6 @@ public class ZayavkaNaProvedenieTendera {
         this.dataOkonchaniyaTendera = dataOkonchaniyaTendera;
     }
 
-    public String getUsloviya() {
-        return usloviya;
-    }
-
-    public void setUsloviya(String usloviya) {
-        this.usloviya = usloviya;
-    }
 
     public Double getNachalnayaTsena() {
         return nachalnayaTsena;
@@ -64,5 +72,17 @@ public class ZayavkaNaProvedenieTendera {
 
     public void setIdOrganizatsii(Long idOrganizatsii) {
         this.idOrganizatsii = idOrganizatsii;
+    }
+
+    public void setIdStatusZayavki(Long idStatusZayavki) {
+        this.idStatusZayavki = idStatusZayavki;
+    }
+
+    public byte[] getUsloviyaPdf() {
+        return usloviyaPdf;
+    }
+
+    public void setUsloviyaPdf(byte[] usloviyaPdf) {
+        this.usloviyaPdf = usloviyaPdf;
     }
 }

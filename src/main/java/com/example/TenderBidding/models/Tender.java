@@ -21,7 +21,7 @@ public class Tender {
     private LocalDate data_nachala; // Дата начала
     private LocalDate data_okonchaniya; // Дата окончания
     private Double nachalnaya_tsena; // начальная цена
-    private String dokument; // Дополнительный документ
+    private byte[] dokument; // Дополнительный документ
     private LocalDate data_izmeneniya_statusa; // Дата изменения статуса
     private Long id_pobeditelya; // Победитель
     private Long id_organizatora; //
@@ -83,11 +83,11 @@ public class Tender {
         this.nachalnaya_tsena = nachalnaya_tsena;
     }
 
-    public String getDokument() {
+    public byte[] getDokument() {
         return dokument;
     }
 
-    public void setDokument(String dokument) {
+    public void setDokument(byte[] dokument) {
         this.dokument = dokument;
     }
 

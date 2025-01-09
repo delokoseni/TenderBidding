@@ -1,12 +1,13 @@
 package com.example.TenderBidding.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "zayavka_na_uchastie_v_tendere")
 public class ZayavkaNaUchastieVTendere {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Или другой подходящий метод
     @Column(name = "id_zayavki_na_uchastie_v_tendere")
@@ -22,18 +23,30 @@ public class ZayavkaNaUchastieVTendere {
     private Long idTendera;
 
     @Column(name = "data_podachi")
-    private LocalDate dataPodachi;
+    private LocalDateTime dataPodachi;  // Используем LocalDateTime
 
-    @Column(name = "dokumenty")
-    private String dokumenty;  // JSON данные
+    @Column(name = "dokument")
+    private byte[] usloviyaPdf;
 
     @Column(name = "id_status_zayavki")
     private Long idStatusZayavki;
 
+    @ManyToOne
+    @JoinColumn(name = "id_status_zayavki", referencedColumnName = "id_status_zayavki", insertable = false, updatable = false)
+    private StatusZayavki statusZayavki;
+
     @Column(name = "data_izmeneniya_statusa")
     private LocalDate dataIzmeneniyaStatusa;
 
-    // Getters and Setters
+    // Getters и Setters
+    public StatusZayavki getStatusZayavki() {
+        return statusZayavki;
+    }
+
+    public void setStatusZayavki(StatusZayavki statusZayavki) {
+        this.statusZayavki = statusZayavki;
+    }
+
     public Long getIdZayavkiNaUchastieVTendere() {
         return idZayavkiNaUchastieVTendere;
     }
@@ -66,20 +79,19 @@ public class ZayavkaNaUchastieVTendere {
         this.idTendera = idTendera;
     }
 
-    public LocalDate getDataPodachi() {
+    public LocalDateTime getDataPodachi() {
         return dataPodachi;
     }
 
-    public void setDataPodachi(LocalDate dataPodachi) {
+    public void setDataPodachi(LocalDateTime dataPodachi) {
         this.dataPodachi = dataPodachi;
     }
-
-    public String getDokumenty() {
-        return dokumenty;
+    public byte[] getUsloviyaPdf() {
+        return usloviyaPdf;
     }
 
-    public void setDokumenty(String dokumenty) {
-        this.dokumenty = dokumenty;
+    public void setUsloviyaPdf(byte[] usloviyaPdf) {
+        this.usloviyaPdf = usloviyaPdf;
     }
 
     public Long getIdStatusZayavki() {
