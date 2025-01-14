@@ -201,7 +201,7 @@ public class RegistrationPageController {
 
             // Подготовка письма
             String subject = "Подтверждение электронной почты";
-            String confirmationUrl = "http://yourdomain.com/confirm?token=" + token;
+            String confirmationUrl = "http://192.168.31.35:8080/confirm?token=" + token;
             String body = "Пожалуйста, подтвердите вашу электронную почту, перейдя по следующей ссылке: " + confirmationUrl;
 
             // Отправка email
@@ -228,16 +228,26 @@ public class RegistrationPageController {
 
     @GetMapping("/confirm")
     public String confirmEmail(@RequestParam("token") String token, Model model) {
+        System.out.println("Received token: " + token);
         Organizatsiya organizatsiya = organizatsiyaRepository.findByEmailConfirmationToken(token).orElse(null);
+
         if (organizatsiya != null) {
             organizatsiya.setEmailConfirmed(true);
             organizatsiya.setEmailConfirmationToken(null); // Обнулить токен
-            organizatsiyaRepository.save(organizatsiya);
-            model.addAttribute("message", "Email успешно подтвержден!");
+
+            try {
+                organizatsiyaRepository.save(organizatsiya);
+                model.addAttribute("message", "Email успешно подтвержден!");
+            } catch (Exception e) {
+                model.addAttribute("error", "Ошибка при подтверждении email: " + e.getMessage());
+                e.printStackTrace();
+            }
         } else {
             model.addAttribute("error", "Недействительный токен подтверждения.");
         }
-        return "confirmationResult"; // Страница с результатом подтверждения
+
+        return "login"; // Страница с результатом подтверждения
     }
+
 
 }
