@@ -17,4 +17,6 @@ public interface OrganizatsiyaRepository extends JpaRepository<Organizatsiya, Lo
      */
     @Query("SELECT o FROM Organizatsiya o WHERE o.ogrn_ogrnip = ?1")
     Optional<Organizatsiya> findByOgrn_ogrnip(String ogrn_ogrnip);
+
+    Optional<Organizatsiya> findByEmailConfirmationToken(String token);
 }

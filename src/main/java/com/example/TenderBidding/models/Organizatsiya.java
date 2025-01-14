@@ -23,6 +23,9 @@ public class Organizatsiya {
     private String email; // Email
     private String parol; // Пароль
 
+    private boolean emailConfirmed; // Статус подтверждения email
+    private String emailConfirmationToken; // Токен для подтверждения email
+
     // Getters and Setters
     public Long getId_organizatsii() {
         return id_organizatsii;
@@ -88,6 +91,22 @@ public class Organizatsiya {
         this.parol = parol;
     }
 
+    public boolean isEmailConfirmed() {
+        return emailConfirmed;
+    }
+
+    public void setEmailConfirmed(boolean emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
+    }
+
+    public String getEmailConfirmationToken() {
+        return emailConfirmationToken;
+    }
+
+    public void setEmailConfirmationToken(String emailConfirmationToken) {
+        this.emailConfirmationToken = emailConfirmationToken;
+    }
+
     @Override
     public String toString() {
         return "Organizatsiya{" +
@@ -99,6 +118,8 @@ public class Organizatsiya {
                 ", data_osnovaniya='" + data_osnovaniya + '\'' +
                 ", email='" + email + '\'' +
                 ", parol='" + parol + '\'' +
+                ", emailConfirmed=" + emailConfirmed +
+                ", emailConfirmationToken='" + emailConfirmationToken + '\'' +
                 '}';
     }
 }

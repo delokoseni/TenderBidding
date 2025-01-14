@@ -5,6 +5,7 @@ import com.example.TenderBidding.repositories.OrganizatsiyaOkvedRepository;
 import com.example.TenderBidding.repositories.OrganizatsiyaRepository;
 import com.example.TenderBidding.repositories.OwnershipTypeRepository;
 import com.example.TenderBidding.repositories.OkvedRepository;
+import com.example.TenderBidding.services.EmailService;
 import com.example.TenderBidding.validators.InnValidator;
 import com.example.TenderBidding.validators.OgrnOgrnipValidator;
 import com.example.TenderBidding.validators.PasswordValidator;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import java.util.List;
@@ -36,6 +39,9 @@ public class RegistrationPageController {
 
     @Autowired
     private OrganizatsiyaOkvedRepository organizatsiyaOkvedRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -188,8 +194,21 @@ public class RegistrationPageController {
                     organizatsiyaOkvedRepository.save(organizatsiyaOkved);
                 }
             }
-            model.addAttribute("success", "Регистрация завершена успешно!");
-            return "redirect:/login"; // Переход на страницу успешной регистрации
+            // Генерация токена подтверждения
+            String token = UUID.randomUUID().toString();
+            newOrganization.setEmailConfirmationToken(token);
+            organizatsiyaRepository.save(newOrganization); // Сохранить с токеном
+
+            // Подготовка письма
+            String subject = "Подтверждение электронной почты";
+            String confirmationUrl = "http://yourdomain.com/confirm?token=" + token;
+            String body = "Пожалуйста, подтвердите вашу электронную почту, перейдя по следующей ссылке: " + confirmationUrl;
+
+            // Отправка email
+            emailService.sendEmail(email, subject, body);
+
+            model.addAttribute("success", "Регистрация завершена успешно! Пожалуйста, проверьте вашу почту для подтверждения.");
+            return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("error", "Не удалось сохранить данные в базе данных: "
                     + e.getMessage());
@@ -205,6 +224,20 @@ public class RegistrationPageController {
         model.addAttribute("ownershipTypes", ownershipTypes);
         List<Okved> okvedList = okvedRepository.findAll();
         model.addAttribute("okvedList", okvedList);
+    }
+
+    @GetMapping("/confirm")
+    public String confirmEmail(@RequestParam("token") String token, Model model) {
+        Organizatsiya organizatsiya = organizatsiyaRepository.findByEmailConfirmationToken(token).orElse(null);
+        if (organizatsiya != null) {
+            organizatsiya.setEmailConfirmed(true);
+            organizatsiya.setEmailConfirmationToken(null); // Обнулить токен
+            organizatsiyaRepository.save(organizatsiya);
+            model.addAttribute("message", "Email успешно подтвержден!");
+        } else {
+            model.addAttribute("error", "Недействительный токен подтверждения.");
+        }
+        return "confirmationResult"; // Страница с результатом подтверждения
     }
 
 }
